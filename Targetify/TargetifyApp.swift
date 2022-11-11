@@ -15,18 +15,7 @@ struct TargetifyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AuthScreen()
-                .task {
-                    
-                    do {
-                        let service = NewsService()
-                        
-                        let news = try await service.fetchNews()
-                        
-                    } catch {
-                    }
-                    
-                }
+            Main()
         }
     }
 }

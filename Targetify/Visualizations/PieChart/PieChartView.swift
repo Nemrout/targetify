@@ -5,6 +5,7 @@
 //  Created by Петрос Тепоян on 10/3/22.
 //
 
+import Charts
 import SwiftUI
 
 struct PieChartView: View {

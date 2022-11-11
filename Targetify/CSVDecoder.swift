@@ -18,13 +18,10 @@ struct CSVDecoder {
         case curruptedData
     }
     
-    func decode(from data: Data) throws -> NamedCSV {
-        guard let string = String(data: data, encoding: .utf8) else {
-            throw DecodingError.curruptedData
-        }
-        
-        let csv = try NamedCSV(string: string, delimiter: .comma)
-        
-        return csv
-    }
+//    func decode(from data: Data) throws -> PageData {
+//
+//        let csv = try PageData(name: <#T##String#>, data: <#T##Data#>)
+//
+//        return csv
+//    }
 }

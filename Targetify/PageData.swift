@@ -10,6 +10,8 @@ import Foundation
 
 class PageData: NamedCSV {
     
+    var name: String
+    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
@@ -48,8 +50,14 @@ class PageData: NamedCSV {
         return columns[c] ?? []
     }
     
-    override init(string: String, delimiter: CSVDelimiter, loadColumns: Bool = true, rowLimit: Int? = nil) throws {
-        try super.init(string: string, delimiter: delimiter)
+    init(name: String, data: Data) throws {
+        guard let string = String(data: data, encoding: .utf8) else {
+            throw CSVDecoder.DecodingError.curruptedData
+        }
+        
+        self.name = name
+        
+        try super.init(string: string, delimiter: .comma)
     }
     
 }
