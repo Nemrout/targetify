@@ -26,6 +26,7 @@
 		15A79B92291EE0B200F0F08A /* ChartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B91291EE0B200F0F08A /* ChartDataManager.swift */; };
 		15A79B94291EE0FB00F0F08A /* PageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B93291EE0FB00F0F08A /* PageData.swift */; };
 		15A79B97291EEF8100F0F08A /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B96291EEF8100F0F08A /* MainScreenViewModel.swift */; };
+		15A79B99291EF6CF00F0F08A /* ChartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B98291EF6CF00F0F08A /* ChartType.swift */; };
 		15E269E428EA2E50007A0172 /* TargetifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E269E328EA2E50007A0172 /* TargetifyApp.swift */; };
 		15E269E828EA2E52007A0172 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E269E728EA2E52007A0172 /* Assets.xcassets */; };
 		15E269EC28EA2E52007A0172 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E269EB28EA2E52007A0172 /* Preview Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		15A79B91291EE0B200F0F08A /* ChartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataManager.swift; sourceTree = "<group>"; };
 		15A79B93291EE0FB00F0F08A /* PageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageData.swift; sourceTree = "<group>"; };
 		15A79B96291EEF8100F0F08A /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
+		15A79B98291EF6CF00F0F08A /* ChartType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartType.swift; sourceTree = "<group>"; };
 		15E269E028EA2E50007A0172 /* Targetify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Targetify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E269E328EA2E50007A0172 /* TargetifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetifyApp.swift; sourceTree = "<group>"; };
 		15E269E728EA2E52007A0172 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				15E269E328EA2E50007A0172 /* TargetifyApp.swift */,
 				150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */,
 				15EF4875291ED3E900991965 /* AppDelegate.swift */,
+				15A79B98291EF6CF00F0F08A /* ChartType.swift */,
 				15A79B95291EEF6800F0F08A /* Main */,
 				15A79B8C291ED83D00F0F08A /* CSVDecoder.swift */,
 				150C4E86291EBCAE00A797AE /* NetworkService.swift */,
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15EF4876291ED3E900991965 /* AppDelegate.swift in Sources */,
+				15A79B99291EF6CF00F0F08A /* ChartType.swift in Sources */,
 				150C4E7E291EB48300A797AE /* NewsService.swift in Sources */,
 				150C4E81291EB51100A797AE /* InfoPlistWrapper.swift in Sources */,
 				1553DC98291ED29600449E2B /* Main.swift in Sources */,

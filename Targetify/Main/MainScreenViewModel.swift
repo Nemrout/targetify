@@ -14,6 +14,8 @@ final class MainScreenViewModel: ObservableObject {
     
     @Published var pageProgress: [String : Int] = [:]
     
+    @Published var pages: [PageData] = []
+    
     var pageNames: [String] {
         Array(pageProgress.keys)
     }
@@ -36,6 +38,12 @@ final class MainScreenViewModel: ObservableObject {
             } catch {}
         }
         
+        Task {
+            let pages = try await firebaseService.fetchPages()
+            DispatchQueue.main.async {
+                self.pages = pages
+            }
+        }
         
         firebaseService.progressPublisher
             .sink { [weak self] progress in
