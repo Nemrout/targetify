@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150C4E7E291EB48300A797AE /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150C4E7D291EB48300A797AE /* NewsService.swift */; };
+		150C4E81291EB51100A797AE /* InfoPlistWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */; };
 		15E269E428EA2E50007A0172 /* TargetifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E269E328EA2E50007A0172 /* TargetifyApp.swift */; };
 		15E269E828EA2E52007A0172 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E269E728EA2E52007A0172 /* Assets.xcassets */; };
 		15E269EC28EA2E52007A0172 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E269EB28EA2E52007A0172 /* Preview Assets.xcassets */; };
@@ -17,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		150C4E7D291EB48300A797AE /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		150C4E7F291EB4EA00A797AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistWrapper.swift; sourceTree = "<group>"; };
 		15E269E028EA2E50007A0172 /* Targetify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Targetify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E269E328EA2E50007A0172 /* TargetifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetifyApp.swift; sourceTree = "<group>"; };
 		15E269E728EA2E52007A0172 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,7 +63,10 @@
 		15E269E228EA2E50007A0172 /* Targetify */ = {
 			isa = PBXGroup;
 			children = (
+				150C4E7F291EB4EA00A797AE /* Info.plist */,
 				15E269E328EA2E50007A0172 /* TargetifyApp.swift */,
+				150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */,
+				150C4E7D291EB48300A797AE /* NewsService.swift */,
 				15E269FB28EA2FCF007A0172 /* Visualizations */,
 				15E269F228EA2EFE007A0172 /* AuthFlow */,
 				15E269E728EA2E52007A0172 /* Assets.xcassets */,
@@ -172,6 +180,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				150C4E7E291EB48300A797AE /* NewsService.swift in Sources */,
+				150C4E81291EB51100A797AE /* InfoPlistWrapper.swift in Sources */,
 				15E269E428EA2E50007A0172 /* TargetifyApp.swift in Sources */,
 				15E26A0028EA300B007A0172 /* PieChartView.swift in Sources */,
 				15E269FA28EA2F27007A0172 /* AuthModel.swift in Sources */,
@@ -305,6 +315,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Targetify/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -343,6 +354,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Targetify/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
