@@ -12,9 +12,13 @@ final class MainScreenViewModel: ObservableObject {
     
     let firebaseService: FirebaseService = FirebaseService()
     
+    @Published var finishedDownloadingFiles: Bool = false
+    
     @Published var pageProgress: [String : Int] = [:]
     
-    @Published var pages: [PageData] = []
+    @Published var pages: [Page] = []
+    
+    @Published var selectedPage: Page?
     
     var pageNames: [String] {
         Array(pageProgress.keys)
@@ -42,6 +46,8 @@ final class MainScreenViewModel: ObservableObject {
             let pages = try await firebaseService.fetchPages()
             DispatchQueue.main.async {
                 self.pages = pages
+                self.selectedPage = pages.first
+                self.finishedDownloadingFiles = true
             }
         }
         
@@ -58,7 +64,7 @@ final class MainScreenViewModel: ObservableObject {
                         self?.pageProgress[pageName] = -1
                         
                     case .success(let pageName):
-                        self?.pageProgress[pageName] = 101
+                        self?.pageProgress[pageName] = 100
                     }
                 }
             }

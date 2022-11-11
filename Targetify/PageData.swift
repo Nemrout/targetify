@@ -10,8 +10,6 @@ import Foundation
 
 class PageData: NamedCSV {
     
-    var name: String
-    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
@@ -23,7 +21,7 @@ class PageData: NamedCSV {
     }()
     
     lazy var clicks: [Int] = {
-        getColumn("groups")
+        getColumn("clicks")
             .compactMap { Int($0) }
     }()
     
@@ -50,12 +48,10 @@ class PageData: NamedCSV {
         return columns[c] ?? []
     }
     
-    init(name: String, data: Data) throws {
+    init(data: Data) throws {
         guard let string = String(data: data, encoding: .utf8) else {
             throw CSVDecoder.DecodingError.curruptedData
         }
-        
-        self.name = name
         
         try super.init(string: string, delimiter: .comma)
     }

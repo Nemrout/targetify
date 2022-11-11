@@ -34,11 +34,11 @@ final class FirebaseService {
         }
     }
     
-    func fetchPages() async throws -> [PageData] {
+    func fetchPages() async throws -> [Page] {
         
         let files = try await allFiles
         
-        var pages: [PageData] = []
+        var pages: [Page] = []
         
         for file in files {
             let page = try await download(file: file)
@@ -48,7 +48,7 @@ final class FirebaseService {
         return pages
     }
     
-    func download(file: StorageReference) async throws -> PageData {
+    func download(file: StorageReference) async throws -> Page {
         
         let pageName: String = file.pageName
         
@@ -65,23 +65,27 @@ final class FirebaseService {
                 }
 
                 do {
-                    let csv: PageData = try PageData(name: pageName, data: data)
-                    continuation.resume(returning: csv)
+                    let csv: PageData = try PageData(data: data)
+                    let page = Page(name: pageName, data: csv)
+                    continuation.resume(returning: page)
                 } catch {
                     continuation.resume(throwing: error)
                 }
             }
             
+            // Progress
             downloadTask.observe(.progress) { [weak self] snapshot in
                 if let progress = snapshot.progress?.fractionCompleted {
                     self?.progressPublisher.send(.progress(pageName, progress))
                 }
             }
             
+            // Failure
             downloadTask.observe(.failure) { [weak self] _ in
                 self?.progressPublisher.send(.failure(pageName))
             }
             
+            // Success
             downloadTask.observe(.success) { [weak self] _ in
                 self?.progressPublisher.send(.success(pageName))
             }
