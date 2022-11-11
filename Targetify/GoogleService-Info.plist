@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>391813417753-eqca28epp3ncc22nmm73uuja8ibjronc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.391813417753-eqca28epp3ncc22nmm73uuja8ibjronc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDMbOZ8yzY0jUZmLv2AHnm6kiLclzHA80U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>391813417753</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tepoyan.Targetify</string>
+	<key>PROJECT_ID</key>
+	<string>targetify-8323e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>targetify-8323e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:391813417753:ios:4da4a64de0f1a2aa669388</string>
+</dict>
+</plist>
