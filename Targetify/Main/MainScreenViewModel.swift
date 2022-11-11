@@ -39,17 +39,36 @@ final class MainScreenViewModel: ObservableObject {
                     self.pageProgress = Dictionary(uniqueKeysWithValues: zip)
                 }
                 
+                for file in files {
+                    Task {
+                        let page = try await firebaseService.download(file: file)
+                        
+                        DispatchQueue.main.async {
+                            self.pages.append(page)
+                        }
+                    }
+                }
+                
             } catch {}
         }
         
-        Task {
-            let pages = try await firebaseService.fetchPages()
-            DispatchQueue.main.async {
-                self.pages = pages
-                self.selectedPage = pages.first
-                self.finishedDownloadingFiles = true
+        self.$pages
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] pages in
+                self?.finishedDownloadingFiles = pages.count == self?.pageProgress.count
             }
-        }
+            .store(in: &bag)
+        
+//
+//        Task {
+//            let pages = try await firebaseService.fetchPages()
+//            DispatchQueue.main.async {
+//                self.pages = pages
+//                self.selectedPage = pages.first
+//                self.finishedDownloadingFiles = true
+//            }
+//        }
         
         firebaseService.progressPublisher
             .sink { [weak self] progress in

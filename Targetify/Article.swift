@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsPiece: Decodable {
+struct Article: Decodable, Identifiable {
     
     struct Source: Decodable {
         
@@ -16,6 +16,8 @@ struct NewsPiece: Decodable {
         let name: String
         
     }
+    
+    let id: UUID = UUID()
     
     let source: Source
     
@@ -63,5 +65,5 @@ struct NewsRequestResponse: Decodable {
     
     let totalResults: Int
     
-    let articles: [NewsPiece]
+    let articles: [Article]
 }

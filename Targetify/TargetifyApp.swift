@@ -15,7 +15,10 @@ struct TargetifyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Main()
+            NavigationView {
+                MainScreen()
+                    .navigationTitle("Dashboard")
+            }
         }
     }
 }

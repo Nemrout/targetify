@@ -5,6 +5,7 @@
 //  Created by Петрос Тепоян on 11/11/22.
 //
 
+import Combine
 import Foundation
 
 final class NewsService: NSObject, NetworkService {
@@ -13,7 +14,16 @@ final class NewsService: NSObject, NetworkService {
     
     var domain: String = "https://newsapi.org/v2/everything"
     
-    private let session: URLSession = URLSession.shared
+    var progressPublisher: PassthroughSubject<Int, Never> = .init()
+    
+    private var observer: NSKeyValueObservation?
+    
+    private lazy var session: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        let delegateQueue = OperationQueue()
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: delegateQueue)
+        return session
+    }()
     
     private func buildRequest(for endpoint: Endpoints) throws -> URLRequest {
         
@@ -30,6 +40,14 @@ final class NewsService: NSObject, NetworkService {
         
         let request = try buildRequest(for: endpoint)
         
+        let dataTask = session.dataTask(with: request)
+
+        observer = dataTask.progress.observe(\.fractionCompleted) { [weak self] progress, _ in
+            self?.progressPublisher.send(Int(progress.fractionCompleted * 100))
+        }
+            
+        dataTask.resume()
+        
         let (data, _) = try await session.data(for: request, delegate: self)
         
         let decoder = JSONDecoder()
@@ -37,7 +55,7 @@ final class NewsService: NSObject, NetworkService {
         return try decoder.decode(T.self, from: data)
     }
     
-    func fetchNews() async throws -> [NewsPiece] {
+    func fetchNews() async throws -> [Article] {
         let response: NewsRequestResponse = try await request(endpoint: .everything(keywords: keywords))
         return response.articles
     }

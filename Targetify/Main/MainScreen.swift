@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct Main: View {
+struct MainScreen: View {
     
     @ObservedObject var viewModel: MainScreenViewModel = .init()
     
     var body: some View {
+        
+        
         Group {
             if viewModel.finishedDownloadingFiles {
-                
+
                 VStack(alignment: .leading) {
-                    
+
                     Menu {
                         ForEach(viewModel.pages) { page in
                             Button {
@@ -29,14 +31,20 @@ struct Main: View {
                         Text(viewModel.selectedPage?.name ?? "Page not selected")
                     }
                     
+                    NavigationLink {
+                        NewsScreen()
+                    } label: {
+                        Text("News")
+                    }
+
                     if let page = viewModel.selectedPage {
                         LineChartView(page: page)
                             .frame(height: 300)
                     }
-                    
+
                 }
-                
-                
+
+
             } else {
                 UploadingDataView(viewModel: viewModel)
             }
@@ -49,7 +57,7 @@ struct Main: View {
 
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
-        Main()
+        MainScreen()
     }
 }
 
