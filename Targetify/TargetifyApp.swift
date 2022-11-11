@@ -11,7 +11,7 @@ import SwiftUI
 struct TargetifyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthScreen()
         }
     }
 }
