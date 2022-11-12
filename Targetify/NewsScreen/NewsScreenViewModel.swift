@@ -20,14 +20,18 @@ final class NewsScreenViewModel: ObservableObject {
     
     var bag: Set<AnyCancellable> = .init()
     
+    var page: Int = 0
+
+    private var articlesLoaded: [Article] = []
+    
     init() {
         
         Task {
-            
             let articles = try await newsService.fetchNews()
             
             DispatchQueue.main.async {
-                self.articles = articles
+                self.articlesLoaded = articles
+                self.loadArticles()
             }
         }
         
@@ -42,5 +46,10 @@ final class NewsScreenViewModel: ObservableObject {
                 }
             })
             .store(in: &bag)
+    }
+    
+    func loadArticles() {
+        self.articles = Array(articlesLoaded.prefix(upTo: 20 * (page + 1)))
+        self.page += 1
     }
 }

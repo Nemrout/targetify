@@ -14,8 +14,6 @@ struct NewsScreen: View {
     var body: some View {
         
         VStack {
-            
-            
             ScrollView {
                 
                 if !viewModel.finishedDownloadingNews {
@@ -44,6 +42,13 @@ struct NewsScreen: View {
                         ArticleView(article: article)
                             .transition(.opacity.combined(with: .move(edge: .bottom)).animation(.spring()))
                     }
+                    
+                    Button {
+                        viewModel.loadArticles()
+                    } label: {
+                        Text("Load more articles")
+                    }
+
                 }
                 .padding()
             }

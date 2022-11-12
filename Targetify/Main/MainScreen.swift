@@ -13,35 +13,29 @@ struct MainScreen: View {
     
     var body: some View {
         
-        
         Group {
             if viewModel.finishedDownloadingFiles {
 
                 VStack(alignment: .leading) {
 
-                    Menu {
-                        ForEach(viewModel.pages) { page in
-                            Button {
-                                viewModel.selectedPage = page
-                            } label: {
-                                Text(page.name)
-                            }
-                        }
-                    } label: {
-                        Text(viewModel.selectedPage?.name ?? "Page not selected")
+                    ZStack(alignment: .topLeading) {
+                        
+                        LineChartView(page: viewModel.selectedPage)
+                            .frame(height: 300)
+                        
+                        ChoosePageDropdown(viewModel: viewModel)
                     }
                     
                     NavigationLink {
                         NewsScreen()
                     } label: {
                         Text("News")
+                            .padding()
+                            .background(TargetifyColors.primary)
+                            .foregroundColor(.white)
+                            .frame(width: 60, height: 44)
+                            .cornerRadius(22)
                     }
-
-                    if let page = viewModel.selectedPage {
-                        LineChartView(page: page)
-                            .frame(height: 300)
-                    }
-
                 }
 
 
@@ -61,7 +55,7 @@ struct Main_Previews: PreviewProvider {
     }
 }
 
-struct UploadingDataView: View {
+fileprivate struct UploadingDataView: View {
     
     @ObservedObject var viewModel: MainScreenViewModel
     
@@ -103,5 +97,25 @@ struct UploadingDataView: View {
                 .stroke(Color.blue, lineWidth: 4)
         )
         
+    }
+}
+
+fileprivate struct ChoosePageDropdown: View {
+    
+    @ObservedObject var viewModel: MainScreenViewModel
+    
+    var body: some View {
+        Menu {
+            ForEach(viewModel.pages) { page in
+                Button {
+                    viewModel.selectedPage = page
+                } label: {
+                    Text(page.name)
+                }
+            }
+        } label: {
+            Text(viewModel.selectedPage?.name ?? "Page not selected")
+                .foregroundColor(TargetifyColors.secondary)
+        }
     }
 }
