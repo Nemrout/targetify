@@ -60,16 +60,6 @@ final class MainScreenViewModel: ObservableObject {
             }
             .store(in: &bag)
         
-//
-//        Task {
-//            let pages = try await firebaseService.fetchPages()
-//            DispatchQueue.main.async {
-//                self.pages = pages
-//                self.selectedPage = pages.first
-//                self.finishedDownloadingFiles = true
-//            }
-//        }
-        
         firebaseService.progressPublisher
             .sink { [weak self] progress in
                 DispatchQueue.main.async {
