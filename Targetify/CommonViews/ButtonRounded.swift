@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct ButtonRounded: View {
+    
+    let text: String
+    
+    let action: () -> ()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        Button(action: action) {
+            Text(text)
+                .padding()
+                .background(TargetifyColors.primary)
+                .foregroundColor(.white)
+                .cornerRadius(15)
+        }
     }
 }
 

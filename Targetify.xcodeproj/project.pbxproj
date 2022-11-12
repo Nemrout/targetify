@@ -127,6 +127,7 @@
 		15A79BAB291FC8F800F0F08A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				150C4E86291EBCAE00A797AE /* NetworkService.swift */,
 				150C4E88291EC59600A797AE /* FirebaseService.swift */,
 				150C4E7D291EB48300A797AE /* NewsService.swift */,
 			);
@@ -136,6 +137,7 @@
 		15A79BAC291FC90D00F0F08A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */,
 				15A79BA7291FC29800F0F08A /* TargetifyColors.swift */,
 			);
 			path = Utils;
@@ -148,6 +150,26 @@
 				15A79B9E291EFBE700F0F08A /* ProgressView.swift */,
 			);
 			path = CommonViews;
+			sourceTree = "<group>";
+		};
+		15A79BAE291FC9C000F0F08A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15A79B93291EE0FB00F0F08A /* PageData.swift */,
+				15A79B9A291EF75700F0F08A /* Page.swift */,
+				150C4E84291EBA5E00A797AE /* Article.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		15A79BAF291FC9D000F0F08A /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				15A79B95291EEF6800F0F08A /* Main */,
+				15A79BA0291F03A800F0F08A /* NewsScreen */,
+				15E269F228EA2EFE007A0172 /* AuthFlow */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		15E269D728EA2E50007A0172 = {
@@ -173,22 +195,16 @@
 				150C4E82291EB70A00A797AE /* GoogleService-Info.plist */,
 				150C4E7F291EB4EA00A797AE /* Info.plist */,
 				15E269E328EA2E50007A0172 /* TargetifyApp.swift */,
-				150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */,
 				15EF4875291ED3E900991965 /* AppDelegate.swift */,
+				15A79BAF291FC9D000F0F08A /* Screens */,
+				15A79BAE291FC9C000F0F08A /* Models */,
 				15A79BAD291FC91A00F0F08A /* CommonViews */,
 				15A79BAC291FC90D00F0F08A /* Utils */,
 				15A79B98291EF6CF00F0F08A /* ChartType.swift */,
-				15A79B95291EEF6800F0F08A /* Main */,
 				15A79B8C291ED83D00F0F08A /* CSVDecoder.swift */,
-				150C4E86291EBCAE00A797AE /* NetworkService.swift */,
 				15A79BAB291FC8F800F0F08A /* Services */,
-				15A79B93291EE0FB00F0F08A /* PageData.swift */,
-				15A79B9A291EF75700F0F08A /* Page.swift */,
 				15A79B91291EE0B200F0F08A /* ChartDataManager.swift */,
-				15A79BA0291F03A800F0F08A /* NewsScreen */,
-				150C4E84291EBA5E00A797AE /* Article.swift */,
 				15E269FB28EA2FCF007A0172 /* Visualizations */,
-				15E269F228EA2EFE007A0172 /* AuthFlow */,
 				15E269E728EA2E52007A0172 /* Assets.xcassets */,
 				15E269E928EA2E52007A0172 /* Targetify.entitlements */,
 				15E269EA28EA2E52007A0172 /* Preview Content */,
@@ -488,10 +504,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tepoyan.Targetify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -527,10 +545,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tepoyan.Targetify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

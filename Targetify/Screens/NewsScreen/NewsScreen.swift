@@ -43,12 +43,9 @@ struct NewsScreen: View {
                             .transition(.opacity.combined(with: .move(edge: .bottom)).animation(.spring()))
                     }
                     
-                    Button {
+                    ButtonRounded(text: "Load more articles") {
                         viewModel.loadArticles()
-                    } label: {
-                        Text("Load more articles")
                     }
-
                 }
                 .padding()
             }

@@ -29,12 +29,7 @@ struct MainScreen: View {
                     NavigationLink {
                         NewsScreen()
                     } label: {
-                        Text("News")
-                            .padding()
-                            .background(TargetifyColors.primary)
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 44)
-                            .cornerRadius(22)
+                        ButtonRounded(text: "News") {}
                     }
                 }
 
