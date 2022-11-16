@@ -29,7 +29,7 @@ struct Article: Decodable, Identifiable {
     
     let url: String
     
-    let urlToImage: String
+    let urlToImage: String?
     
     let publishedAt: String
     
@@ -40,7 +40,7 @@ struct Article: Decodable, Identifiable {
     }
     
     var imageURL: URL? {
-        URL(string: urlToImage)
+        URL(string: urlToImage ?? "")
     }
     
     var publishedAtDate: Date {

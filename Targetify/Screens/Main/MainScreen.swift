@@ -18,13 +18,10 @@ struct MainScreen: View {
 
                 VStack(alignment: .leading) {
 
-                    ZStack(alignment: .topLeading) {
-                        
-                        LineChartView(page: viewModel.selectedPage)
-                            .frame(height: 300)
-                        
-                        ChoosePageDropdown(viewModel: viewModel)
-                    }
+                    LineChartView(page: viewModel.selectedPage)
+                        .frame(height: 300)
+                    
+                    ChoosePageDropdown(viewModel: viewModel)
                     
                     NavigationLink {
                         NewsScreen()
@@ -36,10 +33,11 @@ struct MainScreen: View {
 
             } else {
                 UploadingDataView(viewModel: viewModel)
+                    .transition(.opacity.combined(with: .scale).animation(.easeInOut))
+                    .animation(.easeInOut, value: viewModel.finishedDownloadingFiles)
             }
         }
-        .transition(.opacity.combined(with: .scale).animation(.easeInOut))
-        .animation(.easeInOut, value: viewModel.finishedDownloadingFiles)
+        .navigationTitle("Dashboard")
         
     }
 }

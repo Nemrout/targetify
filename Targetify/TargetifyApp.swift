@@ -17,7 +17,6 @@ struct TargetifyApp: App {
         WindowGroup {
             NavigationView {
                 MainScreen()
-                    .navigationTitle("Dashboard")
             }
         }
     }

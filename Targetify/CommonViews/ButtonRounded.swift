@@ -15,18 +15,18 @@ struct ButtonRounded: View {
     
     var body: some View {
         
-        Button(action: action) {
+//        Button(action: action) {
             Text(text)
                 .padding()
                 .background(TargetifyColors.primary)
                 .foregroundColor(.white)
                 .cornerRadius(15)
-        }
+//        }
     }
 }
 
 struct ButtonRounded_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonRounded()
+        ButtonRounded(text: "Button", action: {})
     }
 }

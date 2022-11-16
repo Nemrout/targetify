@@ -27,12 +27,18 @@ final class NewsScreenViewModel: ObservableObject {
     init() {
         
         Task {
-            let articles = try await newsService.fetchNews()
-            
-            DispatchQueue.main.async {
-                self.articlesLoaded = articles
-                self.loadArticles()
+            do {
+                let articles = try await newsService.fetchNews()
+                
+                DispatchQueue.main.async {
+                    self.articlesLoaded = articles
+                    self.loadArticles()
+                }
+            } catch {
+                TargetifyError(error: error)
+                    .handle()
             }
+            
         }
         
         newsService.progressPublisher
