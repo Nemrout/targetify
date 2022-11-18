@@ -29,6 +29,7 @@ struct MainScreen: View {
                         ButtonRounded(text: "News") {}
                     }
                 }
+                .padding()
 
 
             } else {

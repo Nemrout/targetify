@@ -19,16 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>targetify-8323e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:391813417753:ios:4da4a64de0f1a2aa669388</string>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<string>NO</string>
 </dict>
 </plist>

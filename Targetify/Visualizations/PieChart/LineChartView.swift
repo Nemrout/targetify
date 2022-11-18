@@ -23,6 +23,12 @@ struct LineChartView: View {
                             x: .value("count", i),
                             y: .value("clicks", page.data.clicks[i])
                         )
+                        .foregroundStyle(.blue)
+                        
+                        LineMark(
+                            x: .value("count", i),
+                            y: .value("clicks", page.data.clicks[i])
+                        )
                     }
                 }
             } else {

@@ -42,6 +42,8 @@ extension NetworkService {
             throw NetworkError.cantBuildURLRequest
         }
         
+        print("Running: \(url)")
+        
         let request = URLRequest(url: url)
         
         return request

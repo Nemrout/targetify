@@ -10,7 +10,7 @@ import Foundation
 
 final class MainScreenViewModel: ObservableObject {
     
-    let firebaseService: FirebaseService = FirebaseService()
+    private let networkService: FlaskService = FlaskService()
     
     @Published var finishedDownloadingFiles: Bool = false
     
@@ -30,8 +30,7 @@ final class MainScreenViewModel: ObservableObject {
         
         Task {
             do {
-                let files = try await firebaseService.allFiles
-                let pageNames = files.map { $0.pageName }
+                let pageNames = try await networkService.fetchPages()
                 let progresses: [Int] = Array(repeating: 0, count: pageNames.count)
                 let zip = zip(pageNames, progresses)
                 
@@ -39,9 +38,9 @@ final class MainScreenViewModel: ObservableObject {
                     self.pageProgress = Dictionary(uniqueKeysWithValues: zip)
                 }
                 
-                for file in files {
+                for file in pageNames {
                     Task {
-                        let page = try await firebaseService.download(file: file)
+                        let page = try await networkService.fetchPage(name: file)
                         
                         DispatchQueue.main.async {
                             self.pages.append(page)
@@ -49,7 +48,9 @@ final class MainScreenViewModel: ObservableObject {
                     }
                 }
                 
-            } catch {}
+            } catch {
+                print(error)
+            }
         }
         
         self.$pages
@@ -60,23 +61,23 @@ final class MainScreenViewModel: ObservableObject {
             }
             .store(in: &bag)
         
-        firebaseService.progressPublisher
-            .sink { [weak self] progress in
-                DispatchQueue.main.async {
-                    print(progress)
-                    switch progress {
-                    case .progress(let pageName, let fraction):
-                        let percent = Int(fraction * 100)
-                        self?.pageProgress[pageName] = percent
-                        
-                    case .failure(let pageName):
-                        self?.pageProgress[pageName] = -1
-                        
-                    case .success(let pageName):
-                        self?.pageProgress[pageName] = 100
-                    }
-                }
-            }
-            .store(in: &bag)
+//        firebaseService.progressPublisher
+//            .sink { [weak self] progress in
+//                DispatchQueue.main.async {
+//                    print(progress)
+//                    switch progress {
+//                    case .progress(let pageName, let fraction):
+//                        let percent = Int(fraction * 100)
+//                        self?.pageProgress[pageName] = percent
+//                        
+//                    case .failure(let pageName):
+//                        self?.pageProgress[pageName] = -1
+//                        
+//                    case .success(let pageName):
+//                        self?.pageProgress[pageName] = 100
+//                    }
+//                }
+//            }
+//            .store(in: &bag)
     }
 }

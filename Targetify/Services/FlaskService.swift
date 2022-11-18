@@ -5,11 +5,14 @@
 //  Created by Петрос Тепоян on 11/16/22.
 //
 
+import Combine
 import Foundation
 
 final class FlaskService: NSObject, NetworkService {
     
-    var domain: String = "https://targetify-aua.herokuapp.com"
+    var domain: String = Config.isDebug ? "http://127.0.0.1:8000" : "https://targetify-app.herokuapp.com"
+    
+    var progressPublisher: PassthroughSubject<CGFloat, Never> = .init()
     
     private let jsonDecoder = JSONDecoder()
     
@@ -43,7 +46,7 @@ final class FlaskService: NSObject, NetworkService {
         var urlComponent: String {
             switch self {
             case let .page(name):
-                return "/static/\(name)"
+                return "/page?name=\(name)"
             default:
                 return "/pages"
             }
@@ -58,6 +61,8 @@ extension FlaskService: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        
+        let fraction = CGFloat(bytesWritten) / CGFloat(totalBytesWritten)
+        print(fraction)
+        progressPublisher.send(fraction)
     }
 }

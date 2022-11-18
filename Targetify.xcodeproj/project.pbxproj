@@ -38,6 +38,7 @@
 		15A79BA8291FC29800F0F08A /* TargetifyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79BA7291FC29800F0F08A /* TargetifyColors.swift */; };
 		15A79BAA291FC8EC00F0F08A /* ButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79BA9291FC8EB00F0F08A /* ButtonRounded.swift */; };
 		15C170F02925714800B35706 /* FlaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C170EF2925714800B35706 /* FlaskService.swift */; };
+		15C170F229257D7600B35706 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C170F129257D7600B35706 /* Config.swift */; };
 		15E269E428EA2E50007A0172 /* TargetifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E269E328EA2E50007A0172 /* TargetifyApp.swift */; };
 		15E269E828EA2E52007A0172 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E269E728EA2E52007A0172 /* Assets.xcassets */; };
 		15E269EC28EA2E52007A0172 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15E269EB28EA2E52007A0172 /* Preview Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		15A79BA7291FC29800F0F08A /* TargetifyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetifyColors.swift; sourceTree = "<group>"; };
 		15A79BA9291FC8EB00F0F08A /* ButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRounded.swift; sourceTree = "<group>"; };
 		15C170EF2925714800B35706 /* FlaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlaskService.swift; sourceTree = "<group>"; };
+		15C170F129257D7600B35706 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		15E269E028EA2E50007A0172 /* Targetify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Targetify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E269E328EA2E50007A0172 /* TargetifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetifyApp.swift; sourceTree = "<group>"; };
 		15E269E728EA2E52007A0172 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				1566415A2921063700089B1C /* Extensions */,
 				150C4E7F291EB4EA00A797AE /* Info.plist */,
 				15E269E328EA2E50007A0172 /* TargetifyApp.swift */,
+				15C170F129257D7600B35706 /* Config.swift */,
 				15EF4875291ED3E900991965 /* AppDelegate.swift */,
 				15A79BAF291FC9D000F0F08A /* Screens */,
 				15A79BAE291FC9C000F0F08A /* Models */,
@@ -371,6 +374,7 @@
 				15A79BA2291F03B600F0F08A /* NewsScreen.swift in Sources */,
 				15A79B9D291EF8EF00F0F08A /* LineChartView.swift in Sources */,
 				1566415C2921064300089B1C /* UIApplication+Extensions.swift in Sources */,
+				15C170F229257D7600B35706 /* Config.swift in Sources */,
 				15A79B9B291EF75700F0F08A /* Page.swift in Sources */,
 				15E269F628EA2F0F007A0172 /* AuthScreen.swift in Sources */,
 				15A79B9F291EFBE700F0F08A /* ProgressView.swift in Sources */,
