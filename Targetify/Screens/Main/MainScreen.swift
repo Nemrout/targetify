@@ -24,10 +24,11 @@ struct MainScreen: View {
                     .aspectRatio(332/174, contentMode: .fit)
                 
                 // Traffic by country
-                LineChartView(data: dataPoints, title: "Page views")
+                PieChart(title: "MyPieChart", data: chartDataSet, separatorColor: Color(UIColor.systemBackground), accentColors: pieColors)
                     .aspectRatio(332/174, contentMode: .fit)
             }
             .padding()
+            .padding(.bottom, 60)
         }
         .navigationTitle("Dashboard")
         

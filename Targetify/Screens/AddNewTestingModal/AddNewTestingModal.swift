@@ -16,11 +16,12 @@ struct AddNewTestingModal: View {
         
         VStack {
             
-            DropdownField(viewModel: viewModel)
+            DropdownField(viewModel: viewModel, type: .page)
             
-            DropdownField(viewModel: viewModel)
+            DropdownField(viewModel: viewModel, type: .version)
             
             ButtonRounded(text: "Add new test", action: {})
+                .disabled(viewModel.selectedPage != nil && viewModel.selectedVersion != nil)
             
         }
         .padding()
@@ -33,9 +34,16 @@ struct AddNewTestingModal: View {
     }
 }
 
+enum DropdownFieldType {
+    case page
+    case version
+}
+
 fileprivate struct DropdownField: View {
     
     @ObservedObject var viewModel: AddNewTestingModalViewModel
+    
+    let type: DropdownFieldType
     
     var body: some View {
         
@@ -44,18 +52,36 @@ fileprivate struct DropdownField: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
             Menu {
-                ForEach(viewModel.pages, id: \.self) { page in
+                ForEach(type == .page ? viewModel.pages : viewModel.versions, id: \.self) { string in
 
                     Button {
-                        viewModel.selectedPage = page
+                        if type == .page {
+                            viewModel.selectedPage = string
+                        } else {
+                            viewModel.selectedVersion = string
+                        }
                     } label: {
-                        Text(page)
+                        Text(string)
                     }
 
                 }
             } label: {
                 HStack {
-                    Text("Select Page")
+                    if type == .page {
+                        if let selectedPage = viewModel.selectedPage {
+                            Text(selectedPage)
+                                .bold()
+                        } else {
+                            Text("Select Page")
+                        }
+                    } else {
+                        if let selectedVersion = viewModel.selectedVersion {
+                            Text(selectedVersion)
+                                .bold()
+                        } else {
+                            Text("Select Version")
+                        }
+                    }
                     
                     Spacer()
                     

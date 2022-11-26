@@ -57,6 +57,10 @@
 		15E26A0028EA300B007A0172 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E269FF28EA300B007A0172 /* PieChartView.swift */; };
 		15EF4876291ED3E900991965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EF4875291ED3E900991965 /* AppDelegate.swift */; };
 		15F2161729328BEE0092EA79 /* Colors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2161629328BEE0092EA79 /* Colors+Extensions.swift */; };
+		15F2161A29329DEA0092EA79 /* PieChartSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2161929329DEA0092EA79 /* PieChartSlice.swift */; };
+		15F2161C29329E060092EA79 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2161B29329E060092EA79 /* PieChart.swift */; };
+		15F2161E29329E380092EA79 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2161D29329E380092EA79 /* Helper.swift */; };
+		15F2162029329E5A0092EA79 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2161F29329E5A0092EA79 /* ChartData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +109,10 @@
 		15E269FF28EA300B007A0172 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		15EF4875291ED3E900991965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15F2161629328BEE0092EA79 /* Colors+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extensions.swift"; sourceTree = "<group>"; };
+		15F2161929329DEA0092EA79 /* PieChartSlice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSlice.swift; sourceTree = "<group>"; };
+		15F2161B29329E060092EA79 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
+		15F2161D29329E380092EA79 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		15F2161F29329E5A0092EA79 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +307,7 @@
 		15E269FB28EA2FCF007A0172 /* Visualizations */ = {
 			isa = PBXGroup;
 			children = (
+				15A79B9C291EF8EF00F0F08A /* LineChartView.swift */,
 				15E269FC28EA2FDA007A0172 /* PieChart */,
 			);
 			path = Visualizations;
@@ -308,7 +317,10 @@
 			isa = PBXGroup;
 			children = (
 				15E269FF28EA300B007A0172 /* PieChartView.swift */,
-				15A79B9C291EF8EF00F0F08A /* LineChartView.swift */,
+				15F2161F29329E5A0092EA79 /* ChartData.swift */,
+				15F2161D29329E380092EA79 /* Helper.swift */,
+				15F2161929329DEA0092EA79 /* PieChartSlice.swift */,
+				15F2161B29329E060092EA79 /* PieChart.swift */,
 			);
 			path = PieChart;
 			sourceTree = "<group>";
@@ -411,6 +423,7 @@
 				1553DC98291ED29600449E2B /* MainScreen.swift in Sources */,
 				15A79BA6291F055500F0F08A /* ArticleView.swift in Sources */,
 				15C170F02925714800B35706 /* FlaskService.swift in Sources */,
+				15F2162029329E5A0092EA79 /* ChartData.swift in Sources */,
 				15E269E428EA2E50007A0172 /* TargetifyApp.swift in Sources */,
 				156641592921030100089B1C /* TargetifyError.swift in Sources */,
 				15A79B97291EEF8100F0F08A /* MainScreenViewModel.swift in Sources */,
@@ -420,13 +433,16 @@
 				150C4E87291EBCAE00A797AE /* NetworkService.swift in Sources */,
 				15E269FA28EA2F27007A0172 /* AuthModel.swift in Sources */,
 				159C549429315233000F971E /* ABTestingScreen.swift in Sources */,
+				15F2161A29329DEA0092EA79 /* PieChartSlice.swift in Sources */,
 				159C549129314B08000F971E /* BottomNavBar.swift in Sources */,
 				150C4E89291EC59600A797AE /* FirebaseService.swift in Sources */,
 				159C549A2931531B000F971E /* AddNewTestingModal.swift in Sources */,
 				15A79BAA291FC8EC00F0F08A /* ButtonRounded.swift in Sources */,
 				150C4E85291EBA5E00A797AE /* Article.swift in Sources */,
 				15A79BA2291F03B600F0F08A /* NewsScreen.swift in Sources */,
+				15F2161E29329E380092EA79 /* Helper.swift in Sources */,
 				15A79B9D291EF8EF00F0F08A /* LineChartView.swift in Sources */,
+				15F2161C29329E060092EA79 /* PieChart.swift in Sources */,
 				1566415C2921064300089B1C /* UIApplication+Extensions.swift in Sources */,
 				15C170F229257D7600B35706 /* Config.swift in Sources */,
 				15A79B9B291EF75700F0F08A /* Page.swift in Sources */,

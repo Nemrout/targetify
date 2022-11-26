@@ -38,7 +38,7 @@ struct LineChartView: View {
         ZStack(alignment: .topLeading) {
 
             Chart(data) {
-
+                
                 LineMark(
                     x: .value("Month", $0.label),
                     y: .value("Hours of Sunshine", Float($0.value))
@@ -57,31 +57,31 @@ struct LineChartView: View {
                 AxisMarks(position: .leading, values: yValues)  // << here !!
             }
 //            .chartYScale(range: .plotDimension(padding: 5))
-            .chartOverlay { proxy in
-                ZStack {
-                    GeometryReader { geometry in
-                        Rectangle().fill(.clear).contentShape(Rectangle())
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { value in
-                                        self.touch = value.location
-                                    }
-                                    .onEnded { value in
-                                        self.touch = value.location
-                                        self.touch = nil
-                                    }
-                            )
-                    }
-                }
-
-                Circle()
-                    .fill(Color.red)
-                    .opacity(touch == nil ? 0 : 1)
-                    .position(x: (touch?.x ?? 0) - proxy.plotAreaSize.width / 2,
-                              y: (touch?.y ?? 0) - proxy.plotAreaSize.height / 2)
-                    .animation(.spring(), value: touch)
-                    .frame(width: 15, height: 15, alignment: .center)
-            }
+//            .chartOverlay { proxy in
+//                ZStack {
+//                    GeometryReader { geometry in
+//                        Rectangle().fill(.clear).contentShape(Rectangle())
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged { value in
+//                                        self.touch = value.location
+//                                    }
+//                                    .onEnded { value in
+//                                        self.touch = value.location
+//                                        self.touch = nil
+//                                    }
+//                            )
+//                    }
+//                }
+//
+//                Circle()
+//                    .fill(Color.red)
+//                    .opacity(touch == nil ? 0 : 1)
+//                    .position(x: (touch?.x ?? 0) - proxy.plotAreaSize.width / 2,
+//                              y: (touch?.y ?? 0) - proxy.plotAreaSize.height / 2)
+//                    .animation(.spring(), value: touch)
+//                    .frame(width: 15, height: 15, alignment: .center)
+//            }
             .padding()
             
             Text(title)
