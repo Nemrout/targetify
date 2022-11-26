@@ -13,30 +13,21 @@ struct MainScreen: View {
     
     var body: some View {
         
-        Group {
-            if viewModel.finishedDownloadingFiles {
-
-                VStack(alignment: .leading) {
-
-                    LineChartView(page: viewModel.selectedPage)
-                        .frame(height: 300)
-                    
-                    ChoosePageDropdown(viewModel: viewModel)
-                    
-                    NavigationLink {
-                        NewsScreen()
-                    } label: {
-                        ButtonRounded(text: "News") {}
-                    }
-                }
-                .padding()
-
-
-            } else {
-                UploadingDataView(viewModel: viewModel)
-                    .transition(.opacity.combined(with: .scale).animation(.easeInOut))
-                    .animation(.easeInOut, value: viewModel.finishedDownloadingFiles)
+        ScrollView {
+            VStack(spacing: 20) {
+                // Page views
+                LineChartView(data: dataPoints, title: "Page views")
+                    .aspectRatio(332/174, contentMode: .fit)
+                
+                // Number of clicks
+                LineChartView(data: dataPoints, title: "Page views")
+                    .aspectRatio(332/174, contentMode: .fit)
+                
+                // Traffic by country
+                LineChartView(data: dataPoints, title: "Page views")
+                    .aspectRatio(332/174, contentMode: .fit)
             }
+            .padding()
         }
         .navigationTitle("Dashboard")
         
@@ -111,5 +102,16 @@ fileprivate struct ChoosePageDropdown: View {
             Text(viewModel.selectedPage?.name ?? "Page not selected")
                 .foregroundColor(TargetifyColors.secondary)
         }
+    }
+}
+
+fileprivate struct DummyChart: View {
+    
+    var body: some View {
+        Rectangle()
+            .fill([Color.blue, Color.red, Color.orange].randomElement()!)
+            .cornerRadius(15, antialiased: true)
+            .padding(.top)
+            .aspectRatio(332/174, contentMode: .fit)
     }
 }

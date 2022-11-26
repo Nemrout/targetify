@@ -17,7 +17,7 @@ struct Article: Decodable, Identifiable {
         
     }
     
-    let id: UUID = UUID()
+    var id: UUID = UUID()
     
     let source: Source
     

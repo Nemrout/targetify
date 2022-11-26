@@ -55,6 +55,7 @@ final class NewsScreenViewModel: ObservableObject {
     }
     
     func loadArticles() {
+        guard articlesLoaded.count >= 20 * (page + 1) else { return }
         self.articles = Array(articlesLoaded.prefix(upTo: 20 * (page + 1)))
         self.page += 1
     }

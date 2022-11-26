@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import Foundation
 
-struct TargetifyError: Error {
+final class TargetifyError: Error {
     
     let message: String
     
@@ -33,9 +33,10 @@ struct TargetifyError: Error {
             preferredStyle: .alert
         )
         
-        guard let keyWindow = UIApplication.shared.keyWindow else { return }
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive))
         
         DispatchQueue.main.async {
+            guard let keyWindow = UIApplication.shared.keyWindow else { return }
             keyWindow.rootViewController?.present(alert, animated: true)
         }
     }

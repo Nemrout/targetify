@@ -10,7 +10,9 @@ import Foundation
 
 enum TargetifyColors {
     
-    static let primary: Color = .orange
+    static let primary: Color = .purple
     
     static let secondary: Color = .gray
+    
+    static let chartBackground: Color = Color(hex: "D9D9D9")!
 }
