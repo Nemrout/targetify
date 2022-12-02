@@ -12,17 +12,23 @@ struct BottomNavBarScreen: View {
     
     @StateObject var viewModel: BottomNavBarScreenViewModel = .init()
     
+    @StateObject var mainScreenViewModel: MainScreenViewModel = .init()
+    
+    @StateObject var abTestingScreenViewModel: ABTestingScreenViewModel = .init()
+    
+    @StateObject var newsViewModel: NewsScreenViewModel = NewsScreenViewModel()
+    
     var body: some View {
         
         ZStack {
             
             switch viewModel.page {
             case .dashboard:
-                MainScreen()
+                MainScreen(viewModel: mainScreenViewModel)
             case .news:
-                NewsScreen()
+                NewsScreen(viewModel: newsViewModel)
             case .testing:
-                ABTestingScreen()
+                ABTestingScreen(viewModel: abTestingScreenViewModel)
             }
             
             BottomNavBar(page: $viewModel.page)

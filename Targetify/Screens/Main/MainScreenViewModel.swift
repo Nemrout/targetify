@@ -5,6 +5,7 @@
 //  Created by Петрос Тепоян on 11/12/22.
 //
 
+import SwiftUI
 import Combine
 import Foundation
 
@@ -12,72 +13,78 @@ final class MainScreenViewModel: ObservableObject {
     
     private let networkService: FlaskService = FlaskService()
     
-    @Published var finishedDownloadingFiles: Bool = false
+    @Published var pages: [String] = []
     
-    @Published var pageProgress: [String : Int] = [:]
+    @Published var charts: [ChartConfiguration : ChartData] = [:]
     
-    @Published var pages: [Page] = []
-    
-    @Published var selectedPage: Page?
-    
-    var pageNames: [String] {
-        Array(pageProgress.keys)
-    }
+    var configurations: [ChartConfiguration] = [
+        .init(pageTitle: "Number of clicks", column: "clicks", chartType: .line, frequency: .M1),
+        .init(pageTitle: "Lifetime", column: "lifetime", chartType: .bar, frequency: .M1),
+        .init(pageTitle: "Country", column: "country", chartType: .pie, frequency: .M1)
+    ]
     
     var bag: Set<AnyCancellable> = .init()
     
+    /// Displaying charts:
+    /// 1. Fetch page names
+    /// 2. Fetch page data
+    /// Take a random one
+    /// 3. Request
     init() {
-        
+        self.fetchPages()
+
+//        $pages
+//            .sink { [weak self] pages in
+//                pages.forEach { self?.fetchPage(name: $0) }
+//            }
+//            .store(in: &bag)
+    }
+    
+    func fetchPages() {
         Task {
             do {
-                let pageNames = try await networkService.fetchPages()
-                let progresses: [Int] = Array(repeating: 0, count: pageNames.count)
-                let zip = zip(pageNames, progresses)
+                let pages = try await networkService.fetchPages()
                 
                 DispatchQueue.main.async {
-                    self.pageProgress = Dictionary(uniqueKeysWithValues: zip)
+                    self.pages = pages
                 }
                 
-                for file in pageNames {
-                    Task {
-                        let page = try await networkService.fetchPage(name: file)
-                        
-                        DispatchQueue.main.async {
-                            self.pages.append(page)
-                        }
+                guard let randomPage = pages.randomElement() else { return }
+                print("REQUESTING", randomPage)
+                self.configurations.forEach {
+                    self.fetchPage(name: randomPage, frequency: .M1, configuration: $0)
+                }
+                
+            } catch {
+                TargetifyError(error: error)
+                    .handle()
+            }
+        }
+    }
+    
+    func fetchPage(name: String, frequency: Frequency = .M1, configuration: ChartConfiguration) {
+        let task = Task {
+            
+            do {
+                let chartData = try await networkService.fetchChartData(
+                    page: name,
+                    frequency: frequency.rawValue,
+                    column: configuration.column,
+                    chartType: configuration.chartType,
+                    group: nil
+                )
+                
+//                sleep(1)
+                DispatchQueue.main.async {
+                    withAnimation(.spring()) {
+                        self.charts[configuration] = chartData
                     }
                 }
                 
             } catch {
-                print(error)
+                TargetifyError(error: error)
+                    .handle()
             }
         }
-        
-        self.$pages
-            .dropFirst()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] pages in
-                self?.finishedDownloadingFiles = pages.count == self?.pageProgress.count
-            }
-            .store(in: &bag)
-        
-//        firebaseService.progressPublisher
-//            .sink { [weak self] progress in
-//                DispatchQueue.main.async {
-//                    print(progress)
-//                    switch progress {
-//                    case .progress(let pageName, let fraction):
-//                        let percent = Int(fraction * 100)
-//                        self?.pageProgress[pageName] = percent
-//                        
-//                    case .failure(let pageName):
-//                        self?.pageProgress[pageName] = -1
-//                        
-//                    case .success(let pageName):
-//                        self?.pageProgress[pageName] = 100
-//                    }
-//                }
-//            }
-//            .store(in: &bag)
     }
 }

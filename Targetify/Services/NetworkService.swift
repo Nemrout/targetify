@@ -31,6 +31,8 @@ protocol Endpoint {
     var method: RequestMethod { get }
     
     var urlComponent: String { get }
+    
+    var data: Data? { get }
 }
 
 extension NetworkService {
@@ -44,14 +46,25 @@ extension NetworkService {
         
         print("Running: \(url)")
         
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = endpoint.method.rawValue
+        
+        request.httpBody = endpoint.data
         
         return request
     }
     
     func request(endpoint: Endpoint, delegate: URLSessionTaskDelegate?) async throws -> Data {
         let request = try buildRequest(for: endpoint)
-        let (data, _) = try await URLSession.shared.data(for: request, delegate: delegate)
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.allowsCellularAccess = true
+        
+        let session = URLSession(configuration: configuration)
+        
+        let (data, _) = try await session.data(for: request, delegate: delegate)
+        
         return data
     }
 }

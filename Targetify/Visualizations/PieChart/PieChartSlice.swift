@@ -30,7 +30,7 @@ struct PieChartSlice: View {
             .fill(accentColor)
             .overlay(path.stroke(separatorColor, lineWidth: 2))
             .scaleEffect(isTouched ? 1.05 : 1)
-            .animation(Animation.spring())
+            .animation(Animation.spring(), value: isTouched)
     }
 }
 

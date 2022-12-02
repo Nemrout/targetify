@@ -13,15 +13,15 @@ struct BottomNavBar: View {
     
     var body: some View {
         HStack {
-            BottomNavBarButton(title: "Dashboard", icon: "chart.pie.fill") {
+            BottomNavBarButton(title: "Dashboard", icon: "chart.pie.fill", isSelected: page == .dashboard) {
                 page = .dashboard
             }
             
-            BottomNavBarButton(title: "A/B Testing", icon: "atom") {
+            BottomNavBarButton(title: "A/B Testing", icon: "atom", isSelected: page == .testing) {
                 page = .testing
             }
             
-            BottomNavBarButton(title: "News feed", icon: "newspaper.fill") {
+            BottomNavBarButton(title: "News", icon: "newspaper.fill", isSelected: page == .news) {
                 page = .news
             }
         }
@@ -58,6 +58,8 @@ fileprivate struct BottomNavBarButton: View {
     
     let icon: String
     
+    let isSelected: Bool
+    
     let onTap: () -> ()
     
     var body: some View {
@@ -72,7 +74,7 @@ fileprivate struct BottomNavBarButton: View {
                 
                 Text(title)
             }
-            .foregroundColor(.white)
+            .foregroundColor(isSelected ? .gray : .white)
             .fontWeight(.semibold)
         }
         .frame(maxWidth: .infinity)

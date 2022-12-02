@@ -9,9 +9,18 @@ import Foundation
 
 struct Article: Decodable, Identifiable {
     
+    private enum ArticleCodingKeys: String, CodingKey {
+        case source
+        case author
+        case title
+        case description
+        case url
+        case urlToImage
+        case publishedAt
+        case content
+    }
+    
     struct Source: Decodable {
-        
-        let id: String?
         
         let name: String
         
@@ -47,6 +56,34 @@ struct Article: Decodable, Identifiable {
         .now
     }
     
+    init(from decoder: Decoder) throws {
+        let container = try decoder
+            .container(keyedBy: ArticleCodingKeys.self)
+        
+        self.source = try container
+            .decode(Article.Source.self, forKey: .source)
+        
+        self.author = try container
+            .decodeIfPresent(String.self, forKey: .author)
+        
+        self.title = try container
+            .decode(String.self, forKey: .title)
+        
+        self.description = try container
+            .decode(String.self, forKey: .description)
+        
+        self.url = try container
+            .decode(String.self, forKey: .url)
+        
+        self.urlToImage = try container
+            .decodeIfPresent(String.self, forKey: .urlToImage)
+        
+        self.publishedAt = try container
+            .decode(String.self, forKey: .publishedAt)
+        
+        self.content = try container
+            .decode(String.self, forKey: .content)
+    }
     
 }
 

@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct PieChart: View {
-    
+
     var title: String
-    var data: [ChartData]
-    var separatorColor: Color
-    var accentColors: [Color]
-    
-    @State  private var currentValue = ""
-    @State  private var currentLabel = ""
-    @State  private var touchLocation: CGPoint = .init(x: -1, y: -1)
-    
+    var data: ChartData
+    var separatorColor: Color = Color(UIColor.systemBackground)
+    var accentColors: [Color] = pieColors
+
+    @State private var currentValue = ""
+    @State private var currentLabel = ""
+    @State private var touchLocation: CGPoint = .init(x: -1, y: -1)
+
     //Uncomment the following initializer to use fully generate random colors instead of using a custom color set
 //    init(title: String, data: [ChartData], separatorColor: Color) {
 //        self.title = title
@@ -29,27 +29,27 @@ struct PieChart: View {
 //           accentColors.append(Color.init(red: Double.random(in: 0.2...0.9), green: Double.random(in: 0.2...0.9), blue: Double.random(in: 0.2...0.9)))
 //        }
 //      }
-    
+
     var pieSlices: [PieSlice] {
         var slices = [PieSlice]()
-        data.enumerated().forEach {(index, data) in
+        data.dataPoints.enumerated().forEach {(index, _) in
             let value = normalizedValue(index: index, data: self.data)
             if slices.isEmpty    {
                 slices.append((.init(startDegree: 0, endDegree: value * 360)))
             } else {
-                slices.append(.init(startDegree: slices.last!.endDegree,    endDegree: (value * 360 + slices.last!.endDegree)))
+                slices.append(.init(startDegree: slices.last!.endDegree, endDegree: (value * 360 + slices.last!.endDegree)))
             }
         }
         return slices
     }
-    
+
     var body: some View {
         HStack {
             ZStack {
                 GeometryReader { geometry in
                     ZStack  {
-                        ForEach(0..<self.data.count){ i in
-                            PieChartSlice(center: CGPoint(x: geometry.frame(in: .local).midX, y: geometry.frame(in:  .local).midY), radius: geometry.frame(in: .local).width/2, startDegree: pieSlices[i].startDegree, endDegree: pieSlices[i].endDegree, isTouched: sliceIsTouched(index: i, inPie: geometry.frame(in:  .local)), accentColor: accentColors[i], separatorColor: separatorColor)
+                        ForEach(0..<self.data.dataPoints.count){ i in
+                            PieChartSlice(center: CGPoint(x: geometry.frame(in: .local).midX, y: geometry.frame(in:  .local).midY), radius: geometry.frame(in: .local).width/2, startDegree: pieSlices[i].startDegree, endDegree: pieSlices[i].endDegree, isTouched: sliceIsTouched(index: i, inPie: geometry.frame(in:  .local)), accentColor: getColor(for: i), separatorColor: separatorColor)
                         }
                     }
                     .gesture(DragGesture(minimumDistance: 0)
@@ -60,9 +60,7 @@ struct PieChart: View {
                         })
                             .onEnded({ _ in
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    withAnimation(Animation.easeOut) {
-                                        resetValues()
-                                    }
+                                    resetValues()
                                 }
                             })
                     )
@@ -77,7 +75,7 @@ struct PieChart: View {
                             .padding(10)
                             .background(RoundedRectangle(cornerRadius: 5).foregroundColor(.white).shadow(radius: 3))
                     }
-                    
+
                     if !currentValue.isEmpty {
                         Text("\(currentValue)")
                             .font(.caption)
@@ -89,15 +87,15 @@ struct PieChart: View {
                 }
                 .padding()
             }
-            
+
             VStack(alignment: .leading, spacing: 0)  {
-                ForEach(0..<data.count)  {    i in
+                ForEach(0..<data.dataPoints.count)  {    i in
                     HStack {
                         Circle()
-                            .fill(accentColors[i])
+                            .fill(getColor(for: i))
                             .frame(width: 10, height: 10)
-                        
-                        Text(data[i].label)
+
+                        Text(data.dataPoints[i].label ?? "")
                             .font(.caption)
                     }
                     .frame(maxHeight: .infinity)
@@ -105,31 +103,39 @@ struct PieChart: View {
             }
         }
     }
-    
-    
+
+
     func updateCurrentValue(inPie   pieSize:    CGRect)  {
         guard let angle = angleAtTouchLocation(inPie: pieSize, touchLocation: touchLocation)    else    {return}
         let currentIndex = pieSlices.firstIndex(where: { $0.startDegree < angle && $0.endDegree > angle }) ?? -1
+
+        if let label = data.dataPoints[currentIndex].label {
+            currentLabel = label
+        }
         
-        currentLabel = data[currentIndex].label
-        currentValue = "\(data[currentIndex].value)"
+        currentValue = "\(data.dataPoints[currentIndex].y)"
     }
-    
+
     func resetValues() {
         currentValue = ""
         currentLabel = ""
         touchLocation = .init(x: -1, y: -1)
     }
-    
+
     func sliceIsTouched(index: Int, inPie pieSize: CGRect) -> Bool {
         guard let angle =   angleAtTouchLocation(inPie: pieSize, touchLocation: touchLocation) else { return false }
         return pieSlices.firstIndex(where: { $0.startDegree < angle && $0.endDegree > angle }) == index
     }
     
+    func getColor(for index: Int) -> Color {
+        let i = index % accentColors.count
+        return accentColors[i]
+    }
+
 }
 
-struct PieChart_Previews: PreviewProvider {
-    static var previews: some View {
-        PieChart(title: "MyPieChart", data: chartDataSet, separatorColor: Color(UIColor.systemBackground), accentColors: pieColors)
-    }
-}
+//struct PieChart_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PieChart(title: "MyPieChart", data: chartDataSet, accentColors: )
+//    }
+//}

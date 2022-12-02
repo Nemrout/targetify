@@ -76,6 +76,8 @@ final class NewsService: NSObject, NetworkService {
     
     enum Endpoints: Endpoint {
         
+        var data: Data? { nil }
+        
         case everything(keywords: [String])
         
         var headers: [String : String] {

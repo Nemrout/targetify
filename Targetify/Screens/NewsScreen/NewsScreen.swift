@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewsScreen: View {
     
-    @StateObject var viewModel: NewsScreenViewModel = NewsScreenViewModel()
+    @ObservedObject var viewModel: NewsScreenViewModel
     
     var body: some View {
         
@@ -50,12 +50,12 @@ struct NewsScreen: View {
                 .padding()
             }
         }
-        .navigationTitle("Marketing news")
+        .navigationTitle("News")
     }
 }
 
 struct NewsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        NewsScreen()
+        NewsScreen(viewModel: .init())
     }
 }

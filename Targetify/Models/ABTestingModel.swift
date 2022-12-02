@@ -7,14 +7,26 @@
 
 import Foundation
 
-struct ABTestingModel: Identifiable {
+struct ABTestingModel: Identifiable, Equatable {
     
     let id: UUID = UUID()
     
     let title: String
     
-    let data: [[CGFloat]]
+    let data: ChartData
+    
+    let configuraiton: ChartConfiguration
     
     var isLive: Bool
     
+}
+
+struct BFFAbTestingModel: Codable {
+    
+    let title: String
+    
+    // 01234
+    let groups: String
+    
+    let page: String
 }
