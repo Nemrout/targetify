@@ -13,17 +13,17 @@ enum ChartType: String, Decodable {
     case bar
 }
 
-class ChartConfiguration: Equatable, Hashable, Identifiable {
+final class ChartConfiguration: ObservableObject, Equatable, Hashable, Identifiable {
     
     let id: UUID
+    
+    @Published var frequency: Frequency
     
     let pageTitle: String
     
     let column: String
     
     let chartType: ChartType
-    
-    let frequency: Frequency
     
     let showArea: Bool
     

@@ -46,7 +46,7 @@ struct ArticleView: View {
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 15, style: .continuous)
-                        .stroke(Color.orange, lineWidth: 2)
+                        .stroke(Color.cyan, lineWidth: 2)
                 )
             }
         }

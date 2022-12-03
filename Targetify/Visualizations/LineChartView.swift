@@ -41,16 +41,12 @@ struct LineChartView: View {
         
     }
     
-    let yValues = stride(from: 11, to: 16, by: 0.5).map { $0 } // << here !!
-    
     var body: some View {
         
         let curGradient = LinearGradient(
                 gradient: Gradient (
                     colors: [
                         TargetifyColors.primary,
-                        TargetifyColors.primary.opacity(0.05),
-                        TargetifyColors.primary.opacity(0.05),
                         TargetifyColors.primary.opacity(0.05)
                 ]
             ),
@@ -74,7 +70,8 @@ struct LineChartView: View {
                 if configuration.showArea {
                     AreaMark(
                         x: .value("", $0.label ?? ""),
-                        y: .value("", Float($0.y))
+                        yStart: .value("", dataRange().lowerBound),
+                        yEnd: .value("", Float($0.y))
                     )
                     .clipShape(Rectangle())
                     .interpolationMethod(.catmullRom)

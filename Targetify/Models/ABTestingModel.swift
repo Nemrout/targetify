@@ -26,7 +26,7 @@ struct BFFAbTestingModel: Codable {
     let title: String
     
     // 01234
-    let groups: String
+    let groups: Int
     
     let page: String
 }

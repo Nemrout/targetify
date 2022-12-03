@@ -32,14 +32,16 @@ final class ABTestingScreenViewModel: ObservableObject {
     
     func fetchActiveTestings() {
         Task {
-            let testings = try await flaskService.fetchActiveTestings()
-            testings.forEach { page_groups in
-                let page_groups_split = page_groups.split(separator: "_").map({ $0 })
-//                let page: String = String(page_groups_split[0])
-//                let groups: String = String(page_groups_split[1])
-                
-//                self.fetchDataForTesting(page: page, groups: groups)
+            do {
+                let testings = try await flaskService.fetchActiveTestings()
+                testings.forEach { model in
+                    fetchDataForTesting(page: model.page, groups: String(model.groups))
+                }
+            } catch {
+                TargetifyError(error: error)
+                    .handle()
             }
+            
         }
     }
     

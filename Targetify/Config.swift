@@ -8,5 +8,5 @@
 import Foundation
 
 struct Config {
-    static let isDebug: Bool = true
+    static let isDebug: Bool = false
 }

@@ -76,9 +76,15 @@ final class AddNewTestingModalViewModel: ObservableObject {
     
     private func submitToServer(page: String, groups: String) {
         Task {
+            guard let groups = Int(String(groups.reversed())) else {
+                TargetifyError(message: "Couldn't decode groups. Internal Error.")
+                    .handle()
+                return
+            }
+            let requestModel = BFFAbTestingModel(title: title, groups: groups, page: page)
             
             do {
-                try await flaskService.createABTesting(groups: "\(page)_\(groups)")
+                try await flaskService.createABTesting(requestModel: requestModel)
             } catch {
                 TargetifyError(error: error)
                     .handle()

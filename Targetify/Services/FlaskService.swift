@@ -120,7 +120,7 @@ final class FlaskService: NSObject, NetworkService {
             case let .createTesting(model):
                 let dict = [
                     "title" : model.page,
-                    "groups" : model.groups,
+                    "groups" : String(model.groups),
                     "page" : model.page
                 ]
                 

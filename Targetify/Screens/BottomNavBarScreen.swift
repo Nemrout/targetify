@@ -35,6 +35,30 @@ struct BottomNavBarScreen: View {
                 .padding(.horizontal, 10)
                 .frame(maxHeight: .infinity, alignment: .bottom)
         }
+        .task {
+            do {
+                
+                let flaskService = FlaskService()
+                
+                let versions = try await flaskService.fetchPagesVersions()
+                
+                let uniquePages = versions.map({ $0.pageName }).unique()
+                
+                DispatchQueue.main.async {
+                    var containers_: [PageContainer] = []
+                    
+                    for page in uniquePages {
+                        let versionsForSinglePage = versions.filter({ $0.pageName == page })
+                        let container = PageContainer(pageName: page, versions: versionsForSinglePage)
+                        containers_.append(container)
+                    }
+                    
+                }
+            } catch {
+                TargetifyError(error: error)
+                    .handle()
+            }
+        }
     }
 }
 
