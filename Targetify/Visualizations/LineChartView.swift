@@ -18,25 +18,21 @@ struct LineChartView: View {
         configuration.pageTitle
     }
     
-    func dataRange() -> ClosedRange<Float> {
-        let points = chartData.dataPoints.compactMap { Float($0.y) }
-
-        
-        guard let min = points.min(),
-              let max = points.max()
-        else { return 0...0 }
-        
-        let padding = (max - min) / 10
-        
-        return ((min - padding)...(max + padding))
-    }
-    
     var xValues: [String] {
         switch configuration.frequency.period {
         case .month:
             return chartData.dataPoints.compactMap { $0.label }
         default:
-            return []
+            
+            let len = chartData.dataPoints.count
+            let step = len / 10
+            
+            let sequence = Set(stride(from: 0, through: len, by: step))
+            let labels = chartData.dataPoints
+                .enumerated()
+                .filter({ sequence.contains($0.offset) })
+                .compactMap({ $0.element.label })
+            return labels
         }
         
     }
@@ -54,43 +50,48 @@ struct LineChartView: View {
             endPoint: .bottom
         )
         
-        ZStack(alignment: .topLeading) {
-
-            Chart(chartData.dataPoints) {
-                        
-                LineMark(
-                    x: .value("", $0.label ?? ""),
-                    y: .value("", Float($0.y))
-                )
+        Chart(chartData.dataPoints) {
+            
+            if configuration.multipleGroups {
+                
+                LineMark(x: .value("Date", $0.date ?? .now, unit: .month),
+                         y: .value("", Float($0.yUnwrapped)))
                 .foregroundStyle(by: .value("Group", $0.group ?? ""))
                 .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
                 .interpolationMethod(.catmullRom)
+            } else {
+                LineMark(
+                    x: .value("", $0.label ?? ""),
+                    y: .value("", Float($0.yUnwrapped))
+                )
+                .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                .interpolationMethod(.catmullRom)
                 .foregroundStyle(TargetifyColors.primary)
-                
-                if configuration.showArea {
-                    AreaMark(
-                        x: .value("", $0.label ?? ""),
-                        yStart: .value("", dataRange().lowerBound),
-                        yEnd: .value("", Float($0.y))
-                    )
-                    .clipShape(Rectangle())
-                    .interpolationMethod(.catmullRom)
-                    .foregroundStyle(curGradient)
-                }
             }
-            .chartYScale(domain: dataRange())
-            .chartXAxis {
-                AxisMarks(values: chartData.dataPoints.compactMap { $0.label })
-            }
-            .padding()
             
-            Text(title)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(10)
-                .fontWeight(.semibold)
+            
+            if configuration.showArea {
+                AreaMark(
+                    x: .value("", $0.label ?? ""),
+                    yStart: .value("", chartData.dataRange.lowerBound),
+                    yEnd: .value("", Float($0.yUnwrapped))
+                )
+                .clipShape(Rectangle())
+                .interpolationMethod(.catmullRom)
+                .foregroundStyle(curGradient)
+            }
         }
-        .background(TargetifyColors.chartBackground)
-        .cornerRadius(20)
+//        .padding()
+//        .background(TargetifyColors.chartBackground)
+        .chartYScale(domain: chartData.dataRange)
+        .chartXAxis {
+            AxisMarks(values: xValues)
+        }
+        
+//        .padding()
+//        .background(TargetifyColors.chartBackground)
+//        .cornerRadius(20)
+        
     }
 }
 

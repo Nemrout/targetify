@@ -16,20 +16,12 @@ struct PieChartView: View {
     var accentColors: [Color] = pieColors
     
     var body: some View {
-        ZStack {
-         
-            PieChart(
-                title: title,
-                data: data,
-                separatorColor: separatorColor,
-                accentColors: accentColors)
-            .padding(15)
-            
-            Text(title)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .fontWeight(.semibold)
-                .padding(10)
-        }
+        PieChart(
+            title: title,
+            data: data,
+            separatorColor: separatorColor,
+            accentColors: accentColors)
+        .padding(15)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 20)

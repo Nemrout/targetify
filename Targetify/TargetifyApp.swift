@@ -19,11 +19,6 @@ struct TargetifyApp: App {
         WindowGroup {
             NavigationView {
                 BottomNavBarScreen()
-                    .sheet(isPresented: $viewModel.showsAddNewTestingModal, content: {
-                        AddNewTestingModal()
-                            .presentationDetents([.height(600)])
-                    })
-                    .animation(.spring(), value: viewModel.showsAddNewTestingModal)
                     .environmentObject(viewModel)
             }
         }

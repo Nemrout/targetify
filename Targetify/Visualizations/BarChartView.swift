@@ -20,26 +20,17 @@ struct BarChartView: View {
     
     var body: some View {
         
-        ZStack(alignment: .topLeading) {
-
-            Chart(chartData.dataPoints) {
-                     
-                BarMark(
-                    x: .value("", $0.label ?? ""),
-                    y: .value("", Float($0.y))
-                )
+        Chart(chartData.dataPoints) {
+                 
+            BarMark(
+                x: .value("", $0.label ?? ""),
+                y: .value("", Float($0.yUnwrapped))
+            )
 //                    .foregroundStyle(by: .value("Group", $0.group ?? ""))
-                    .foregroundStyle(TargetifyColors.primary)
-            }
-            .padding()
-            
-            Text(title)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(10)
-                .fontWeight(.semibold)
+                .foregroundStyle(TargetifyColors.primary)
         }
-        
-        .background(TargetifyColors.chartBackground)
+        .padding()
+//        .background(TargetifyColors.chartBackground)
         .cornerRadius(20)
     }
 }

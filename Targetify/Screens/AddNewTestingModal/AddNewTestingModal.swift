@@ -14,6 +14,10 @@ struct AddNewTestingModal: View {
     
     @StateObject var viewModel: AddNewTestingModalViewModel = .init()
     
+    @ObservedObject var screenViewModel: ABTestingScreenViewModel
+    
+    @FocusState var focused: Bool
+    
     var body: some View {
         
         VStack(spacing: 12) {
@@ -25,7 +29,15 @@ struct AddNewTestingModal: View {
                 .padding(.leading)
                 .padding(.top)
             
+            
             TextField("Title of the testing...", text: $viewModel.title)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(Color.black, style: StrokeStyle(lineWidth: 3))
+                )
+                .focused($focused)
+                .padding(.horizontal)
             
             Dropdown(viewModel: viewModel)
             
@@ -39,6 +51,7 @@ struct AddNewTestingModal: View {
                             
                             Checkbox(isEnabled: viewModel.selectedPageVersions.contains(version)) {}
                         }
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             if let found = viewModel.selectedPageVersions.firstIndex(where: { $0 == version }) {
                                 viewModel.selectedPageVersions.remove(at: found)
@@ -46,6 +59,10 @@ struct AddNewTestingModal: View {
                                 viewModel.selectedPageVersions.append(version)
                             }
                         }
+                        .padding(.horizontal)
+                        .padding(.vertical, 4)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(8, antialiased: true)
                         .padding(.horizontal)
                     }
                     .animation(.spring(), value: viewModel.selectedPageVersions)
@@ -58,11 +75,11 @@ struct AddNewTestingModal: View {
                             
                             Spacer()
                             
-                            Checkbox(isEnabled: false, onTap: {})
-                                .redacted(reason: .placeholder)
+//                            Checkbox(isEnabled: true, onTap: {})
                         }
                         .padding(.horizontal)
                         .redacted(reason: .placeholder)
+                        .padding(.horizontal)
                     }
                 }
             }
@@ -74,6 +91,9 @@ struct AddNewTestingModal: View {
             }
             
             Spacer()
+        }
+        .onTapGesture {
+            focused = false
         }
     }
 }
@@ -99,8 +119,10 @@ fileprivate struct Dropdown: View {
             Group {
                 if let selected = viewModel.selectedPageContainer {
                     Text(selected.pageName)
+                        .bold()
                 } else {
                     Text("Choose Page")
+                        .bold()
                 }
             }
             .frame(width: 120)
@@ -132,14 +154,15 @@ fileprivate struct Checkbox: View {
                     .resizable()
                     .frame(width: 24, height: 24, alignment: .center)
                     .foregroundColor(.blue)
+                    .cornerRadius(12)
             }
             
         }
         .animation(.spring(), value: isEnabled)
         .frame(width: 24, height: 24, alignment: .center)
-        .onTapGesture {
-            onTap()
-        }
+//        .onTapGesture {
+//            onTap()
+//        }
     }
     
 }

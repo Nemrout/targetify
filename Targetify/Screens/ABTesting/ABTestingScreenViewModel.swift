@@ -30,6 +30,18 @@ final class ABTestingScreenViewModel: ObservableObject {
             .store(in: &bag)
     }
     
+    func deleteTestingServer(id: Int) {
+        Task {
+            do {
+                let success = try await flaskService.deleteABTesting(id: id)
+            } catch {
+                TargetifyError(error: error)
+                    .handle()
+            }
+            
+        }
+    }
+    
     func fetchActiveTestings() {
         Task {
             do {

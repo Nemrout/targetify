@@ -40,9 +40,28 @@ struct ChartData: Decodable, Equatable {
         
         self.dataPoints = try container
             .decode([DataPoint].self, forKey: .dataPoints)
+            .filter({ $0.y != nil })
     }
     
     static func ==(lhs: ChartData, rhs: ChartData) -> Bool {
         lhs.page == rhs.page
     }
+    
+    var dataRange: ClosedRange<Float> {
+        _dataRange()
+    }
+    
+    private func _dataRange() -> ClosedRange<Float> {
+        let points = dataPoints.compactMap { Float($0.yUnwrapped) }
+
+        
+        guard let min = points.min(),
+              let max = points.max()
+        else { return 0...0 }
+        
+        let padding = (max - min) / 10
+        
+        return ((min - padding)...(max + padding))
+    }
+    
 }

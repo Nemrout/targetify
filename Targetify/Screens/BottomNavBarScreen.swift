@@ -22,14 +22,17 @@ struct BottomNavBarScreen: View {
         
         ZStack {
             
-            switch viewModel.page {
-            case .dashboard:
-                MainScreen(viewModel: mainScreenViewModel)
-            case .news:
-                NewsScreen(viewModel: newsViewModel)
-            case .testing:
-                ABTestingScreen(viewModel: abTestingScreenViewModel)
+            Group {
+                switch viewModel.page {
+                case .dashboard:
+                    MainScreen(viewModel: mainScreenViewModel)
+                case .news:
+                    NewsScreen(viewModel: newsViewModel)
+                case .testing:
+                    ABTestingScreen(viewModel: abTestingScreenViewModel)
+                }
             }
+            .padding(.bottom, 60)
             
             BottomNavBar(page: $viewModel.page)
                 .padding(.horizontal, 10)

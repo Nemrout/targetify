@@ -21,9 +21,9 @@ let pieColors = [
 
 func normalizedValue(index: Int, data: ChartData) -> Double {
     
-    var values = data.dataPoints.map { $0.y }
+    let values = data.dataPoints.map { $0.yUnwrapped }
     let point = values[index]
-    let total = values.reduce(0, +)
+    let total = values.reduce(0.0, +)
     let fraction = point / total
     
     return fraction

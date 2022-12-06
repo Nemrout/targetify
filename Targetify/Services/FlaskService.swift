@@ -22,13 +22,6 @@ final class FlaskService: NSObject, NetworkService {
         return pages
     }
     
-    func fetchPage(name: String) async throws -> Page {
-        let data = try await self.request(endpoint: Endpoints.page(name: name), delegate: self)
-        let pageData = try PageData(data: data)
-        let page = Page(name: name, data: pageData)
-        return page
-    }
-    
     func fetchChartData(page: String, frequency: String, column: String, chartType: ChartType, group: String?) async throws -> ChartData {
         let endpoint = Endpoints.chartData(page: page, frequency: frequency, column: column, chartType: chartType, group: group)
         let data = try await self.request(endpoint: endpoint, delegate: self)
@@ -53,7 +46,20 @@ final class FlaskService: NSObject, NetworkService {
     func createABTesting(requestModel: BFFAbTestingModel) async throws {
         let endpoint = Endpoints.createTesting(requestModel: requestModel)
         let data = try await self.request(endpoint: endpoint, delegate: self)
-        print(String(data: data, encoding: .utf8))
+        print(String(data: data, encoding: .utf8) ?? "")
+    }
+    
+    func deleteABTesting(id: Int) async throws {
+        let endpoint = Endpoints.deleteTesting(index: id)
+        let data = try await self.request(endpoint: endpoint, delegate: self)
+        print(String(data: data, encoding: .utf8) ?? "")
+    }
+    
+    func fetchPairs(page: String, groups: String) async throws -> [ABTestingPair] {
+        let endpoint = Endpoints.getStatistics(page: page, groups: groups)
+        let data = try await self.request(endpoint: endpoint, delegate: self)
+        let pairs = try jsonDecoder.decode([ABTestingPair].self, from: data)
+        return pairs
     }
     
     enum Endpoints: Endpoint {
@@ -70,13 +76,17 @@ final class FlaskService: NSObject, NetworkService {
         
         case createTesting(requestModel: BFFAbTestingModel)
         
+        case deleteTesting(index: Int)
+        
+        case getStatistics(page: String, groups: String)
+        
         var headers: [String : String] {
             [:]
         }
         
         var method: RequestMethod {
             switch self {
-            case .chartData, .createTesting:
+            case .chartData, .createTesting, .deleteTesting, .getStatistics:
                 return .post
             default:
                 return .get
@@ -95,7 +105,11 @@ final class FlaskService: NSObject, NetworkService {
                 return "/active_testings"
             case .createTesting:
                 return "/create_ab_testing"
-            default:
+            case .deleteTesting:
+                return "/delete_testing"
+            case .getStatistics:
+                return "/get_statistic"
+            case .pages:
                 return "/pages"
             }
         }
@@ -124,6 +138,23 @@ final class FlaskService: NSObject, NetworkService {
                     "page" : model.page
                 ]
                 
+                let data = try? JSONSerialization.data(withJSONObject: dict)
+                
+                return data
+                
+            case let .deleteTesting(index):
+                let dict = [
+                    "id" : index
+                ]
+                let data = try? JSONSerialization.data(withJSONObject: dict)
+                
+                return data
+                
+            case let .getStatistics(page, groups):
+                let dict = [
+                    "page" : page,
+                    "groups" : groups
+                ]
                 let data = try? JSONSerialization.data(withJSONObject: dict)
                 
                 return data

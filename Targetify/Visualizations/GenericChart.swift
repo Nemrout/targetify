@@ -14,65 +14,73 @@ struct GenericChart: View {
     
     let chartData: ChartData?
     
+    let configurable: Bool
+    
     @State private var isConfiguring: Bool = false
     
     var body: some View {
         
         Group {
             
-            if let chartData = chartData {
+            VStack {
                 
-                ZStack {
+                HStack {
+                    HStack {
+                        Text(configuration.pageTitle)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.leading)
+                            
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
                     
-                    if !isConfiguring {
-                        switch configuration.chartType {
-                        case .line:
-                            LineChartView(chartData: chartData, configuration: configuration)
-                        case .bar:
-                            BarChartView(chartData: chartData, configuration: configuration)
-                        case .pie:
-                            PieChartView(title: "Country", data: chartData, accentColors: pieColors)
+                    Spacer()
+                    
+                    if configurable && configuration.chartType != .pie {
+                        FrequencyPicker(frequency: $configuration.frequency)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .frame(height: 44)
+                
+                Group {
+                    if let chartData = chartData {
+                        
+                        ZStack {
+                            
+                            switch configuration.chartType {
+                            case .line:
+                                LineChartView(chartData: chartData, configuration: configuration)
+                            case .bar:
+                                BarChartView(chartData: chartData, configuration: configuration)
+                            case .pie:
+                                PieChartView(title: "Country", data: chartData, accentColors: pieColors)
+                            }
                         }
+                        
+                        
                     } else {
                         ZStack {
                             TargetifyColors.chartBackground
                                 .background(TargetifyColors.chartBackground)
                                 .cornerRadius(20)
                             
-                            FrequencyPicker(frequency: $configuration.frequency)
-                                .frame(maxWidth: .infinity)
+                            HStack {
+                                SwiftUI.ProgressView()
+                                    .padding()
+                                
+                                Text("Loading data...")
+                                    .foregroundColor(.secondary)
+                            }
                             
                         }
-                        
                     }
                 }
-                .overlay(alignment: .topTrailing) {
-                    Button(action: { isConfiguring.toggle() }, label: { Text("Config") })
-                        .buttonStyle(.borderedProminent)
-                        .padding()
-                }
-                
-                
-                
-            } else {
-                ZStack {
-                    TargetifyColors.chartBackground
-                        .background(TargetifyColors.chartBackground)
-                        .cornerRadius(20)
-                    
-                    HStack {
-                        SwiftUI.ProgressView()
-                            .padding()
-                        
-                        Text("Loading data...")
-                            .foregroundColor(.secondary)
-                    }
-                    
-                }
+                .aspectRatio(332/174, contentMode: .fit)
             }
         }
         .animation(.spring(), value: chartData)
-        .aspectRatio(332/174, contentMode: .fit)
         
     }
 }

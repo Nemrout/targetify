@@ -106,19 +106,22 @@ final class AddNewTestingModalViewModel: ObservableObject {
                 )
                 
                 let configuration = ChartConfiguration(
-                    pageTitle: "",
+                    pageTitle: title,
                     column: "clicks",
                     chartType: .line,
                     frequency: .M1,
-                    showArea: false
+                    showArea: false,
+                    multipleGroups: true
                 )
                 
                 let newModel = ABTestingModel(
-                    title: "",
+                    title: title,
                     data: chartData,
                     configuraiton: configuration,
                     isLive: false
                 )
+                
+                newModel.groups = groups
                 
                 DispatchQueue.main.async {
                     ABTestingScreenViewModel.subject.send(newModel)

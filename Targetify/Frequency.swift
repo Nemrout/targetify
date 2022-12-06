@@ -54,11 +54,15 @@ struct Frequency: Hashable, Identifiable {
     
     static var D1: Frequency = Frequency(.day, 1)
     
-    static var M1: Frequency = Frequency(.month, 1)
-    
     static var W1: Frequency = Frequency(.week, 1)
     
-    static var common: [Frequency] = [.H1, .D1, .M1, .W1]
+    static var W2: Frequency = Frequency(.week, 2)
+    
+    static var W3: Frequency = Frequency(.week, 3)
+    
+    static var M1: Frequency = Frequency(.month, 1)
+    
+    static var common: [Frequency] = [.W1, .W2, .W3, .M1]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(rawValue)

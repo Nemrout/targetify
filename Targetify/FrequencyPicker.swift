@@ -26,6 +26,7 @@ struct FrequencyPicker: View {
                     Picker("Pick", selection: $frequency) {
                         ForEach(Frequency.common) { freq in
                             Text(freq.rawValue)
+                                .tag(freq)
                         }
                     }
                     .pickerStyle(.segmented)
@@ -33,14 +34,14 @@ struct FrequencyPicker: View {
             }
             
             
-            Image(systemName: "gear.circle.fill")
-                .resizable()
-                .frame(width: 24, height: 24, alignment: .center)
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        expanded.toggle()
-                    }
-                }
+//            Image(systemName: "gear.circle.fill")
+//                .resizable()
+//                .frame(width: 24, height: 24, alignment: .center)
+//                .onTapGesture {
+//                    withAnimation(.spring()) {
+//                        expanded.toggle()
+//                    }
+//                }
             
         }
         
@@ -74,7 +75,7 @@ fileprivate struct WheelFreqPicker: View {
                     }
                 }
                     .pickerStyle(.wheel)
-                    .frame(width: geometry.size.width / 2, height: geometry.size.height, alignment: .center)
+                    .frame(width: geometry.size.width * 2 / 3, height: geometry.size.height, alignment: .center)
                     .compositingGroup()
                     .clipped()
                 
@@ -84,7 +85,7 @@ fileprivate struct WheelFreqPicker: View {
                     }
                 }
                     .pickerStyle(.wheel)
-                    .frame(width: geometry.size.width/2, height: geometry.size.height, alignment: .center)
+                    .frame(width: geometry.size.width / 3, height: geometry.size.height, alignment: .center)
                     .compositingGroup()
                     .clipped()
             }

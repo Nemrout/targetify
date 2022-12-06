@@ -17,16 +17,22 @@ struct ABTestingScreen: View {
     var body: some View {
         VStack(spacing: 0) {
             List {
-                ForEach(viewModel.testingModels) { model in
-                    ABTestingCardView(model: model)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                viewModel.testingModels.removeAll(where: { $0 == model } )
-                            } label: {
-                                Label("Delete", systemImage: "trash")
+                ForEach(0..<viewModel.testingModels.count, id: \.self) { i in
+                    
+                    if i < viewModel.testingModels.count {
+                        let model = viewModel.testingModels[i]
+                        
+                        ABTestingCardView(model: model)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    viewModel.deleteTestingServer(id: i)
+                                    viewModel.testingModels.removeAll(where: { $0 == model } )
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
-                        }
-                        .transition(.slide.animation(.spring()))
+                            .transition(.slide.animation(.spring()))
+                    }
                 }
                 .listRowSeparator(Visibility.hidden)
                 
@@ -39,11 +45,15 @@ struct ABTestingScreen: View {
             .transition(.slide.animation(.spring()))
             .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 4, trailing: 4))
             .listStyle(.plain)
-//            .fixedSize(horizontal: false, vertical: true)
         }
         .navigationTitle("A/B Testing")
         .onAppear {
-            viewModel.fetchActiveTestings()
+//            viewModel.fetchActiveTestings()
         }
+        .sheet(isPresented: $rootViewModel.showsAddNewTestingModal, content: {
+            AddNewTestingModal(screenViewModel: viewModel)
+//                .presentationDetents([SwiftUI.PresentationDetent.medium, SwiftUI.PresentationDetent.large])
+        })
+        .animation(.spring(), value: rootViewModel.showsAddNewTestingModal)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ABTestingModel: Identifiable, Equatable {
+final class ABTestingModel: Identifiable, Equatable {
     
     let id: UUID = UUID()
     
@@ -18,7 +18,19 @@ struct ABTestingModel: Identifiable, Equatable {
     let configuraiton: ChartConfiguration
     
     var isLive: Bool
+
+    var groups: String = ""
     
+    init(title: String, data: ChartData, configuraiton: ChartConfiguration, isLive: Bool) {
+        self.title = title
+        self.data = data
+        self.configuraiton = configuraiton
+        self.isLive = isLive
+    }
+    
+    static func == (lhs: ABTestingModel, rhs: ABTestingModel) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 struct BFFAbTestingModel: Codable {

@@ -14,26 +14,50 @@ struct MainScreen: View {
     var body: some View {
         
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 25) {
                 ForEach(viewModel.configurations) { configuration in
                     let chartData = viewModel.charts[configuration]
-                    GenericChart(configuration: configuration, chartData: chartData)
+                    GenericChart(configuration: configuration, chartData: chartData, configurable: true)
+                        .id(configuration.id)
                 }
             }
             .padding()
-            .padding(.bottom, 60)
+            
         }
-        .onTapGesture {
-            viewModel.fetchPages()
-        }
+//        .onTapGesture {
+//            viewModel.fetchPages()
+//        }
         .navigationTitle("Dashboard")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    Text("Page")
+                    ForEach(0..<viewModel.pages.count, id: \.self) { i in
+                        let page = viewModel.pages[i]
+                        let pageFormatted = viewModel.pagesFormatted[i]
+                            
+                        Button {
+                            viewModel.selectedPage = pageFormatted
+                            
+                            viewModel.configurations.forEach {
+                                viewModel.fetchPage(name: page, frequency: $0.frequency, configuration: $0)
+                            }
+                        } label: {
+                            Text(page)
+                        }
+
+                        
+                    }
                 } label: {
-                    Text("Page")
+                    
+                    let selectedPage = String(viewModel.selectedPage
+                        .split(separator: ".")
+                        .first?
+                        .split(separator: "_")
+                        .last ?? "page")
+                    
+                    Text(selectedPage)
                 }
+                .fixedSize()
 
             }
         }

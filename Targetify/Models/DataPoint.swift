@@ -13,7 +13,11 @@ struct DataPoint: Decodable, Identifiable {
     
     let x: CGFloat?
     
-    let y: CGFloat
+    let y: CGFloat?
+    
+    var yUnwrapped: CGFloat {
+        y!
+    }
     
     let label: String?
     
@@ -21,11 +25,16 @@ struct DataPoint: Decodable, Identifiable {
     
     var date: Date? {
         
-        guard let label = label else { return nil }
+//        guard let label = label else { return nil }
+//
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        return formatter.date(from: label)
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter.date(from: label)
+        guard let seconds = x else { return nil }
+        let date = Date(timeIntervalSince1970: seconds)
+        print(date, seconds)
+        return date
     }
     
     var month: String? {

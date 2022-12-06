@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftCSV
 
 struct CSVDecoder {
     enum DecodingError: Error {

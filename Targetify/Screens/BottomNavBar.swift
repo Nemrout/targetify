@@ -74,7 +74,7 @@ fileprivate struct BottomNavBarButton: View {
                 
                 Text(title)
             }
-            .foregroundColor(isSelected ? .gray : .white)
+            .foregroundColor(isSelected ? .orange : .white)
             .fontWeight(.semibold)
         }
         .frame(maxWidth: .infinity)
