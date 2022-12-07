@@ -77,10 +77,12 @@ struct GenericChart: View {
                         }
                     }
                 }
-                .aspectRatio(332/174, contentMode: .fit)
+                .frame(height: chartHeight)
             }
         }
         .animation(.spring(), value: chartData)
         
     }
 }
+
+public let chartHeight: CGFloat = 224

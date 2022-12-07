@@ -19,6 +19,8 @@ final class ABTestingScreenViewModel: ObservableObject {
     
     var bag: Set<AnyCancellable> = .init()
     
+    var didLoad: Bool = false
+    
     init() {
         print(#file, "INIT")
         ABTestingScreenViewModel.subject
@@ -43,12 +45,16 @@ final class ABTestingScreenViewModel: ObservableObject {
     }
     
     func fetchActiveTestings() {
+        
+        guard !didLoad else { return }
+        
         Task {
             do {
                 let testings = try await flaskService.fetchActiveTestings()
                 testings.forEach { model in
                     fetchDataForTesting(page: model.page, groups: String(model.groups))
                 }
+                didLoad = true
             } catch {
                 TargetifyError(error: error)
                     .handle()
@@ -75,7 +81,8 @@ final class ABTestingScreenViewModel: ObservableObject {
                     column: "clicks",
                     chartType: .line,
                     frequency: .M1,
-                    showArea: false
+                    showArea: false,
+                    multipleGroups: true
                 )
                 
                 let newModel = ABTestingModel(
@@ -88,6 +95,58 @@ final class ABTestingScreenViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.testingModels.append(newModel)
                 }
+            } catch {
+                TargetifyError(error: error)
+                    .handle()
+            }
+            
+        }
+    }
+    
+    
+    func fetchActiveTestings1() {
+        
+        guard !didLoad else { return }
+        
+        Task {
+            do {
+                let testings = try await flaskService.fetchActiveTestings()
+                for model in testings {
+                    let pageName = "pagelite_\(model.page).csv"
+                    do {
+                        let chartData = try await self.flaskService.fetchChartData(
+                            page: pageName,
+                            frequency: Frequency.M1.rawValue,
+                            column: "clicks",
+                            chartType: .line,
+                            group: String(model.groups)
+                        )
+                        
+                        let configuration = ChartConfiguration(
+                            pageTitle: "",
+                            column: "clicks",
+                            chartType: .line,
+                            frequency: .M1,
+                            showArea: false,
+                            multipleGroups: true
+                        )
+                        
+                        let newModel = ABTestingModel(
+                            title: model.title,
+                            data: chartData,
+                            configuraiton: configuration,
+                            isLive: false
+                        )
+                        
+                        DispatchQueue.main.async {
+                            self.testingModels.append(newModel)
+                        }
+                    } catch {
+                        TargetifyError(error: error)
+                            .handle()
+                    }
+                }
+                didLoad = true
             } catch {
                 TargetifyError(error: error)
                     .handle()

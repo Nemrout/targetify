@@ -65,7 +65,7 @@ struct PieChart: View {
                             })
                     )
                 }
-                .aspectRatio(contentMode: .fit)
+                .frame(height: chartHeight)
                 VStack  {
                     if !currentLabel.isEmpty   {
                         Text(currentLabel)

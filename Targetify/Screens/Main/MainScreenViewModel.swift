@@ -33,7 +33,7 @@ final class MainScreenViewModel: ObservableObject, FrequencyChangedProtocol {
     var configurations: [ChartConfiguration] = [
         .init(pageTitle: "Number of clicks", column: "clicks", chartType: .line, frequency: .M1),
         .init(pageTitle: "Lifetime", column: "lifetime", chartType: .bar, frequency: .M1),
-        .init(pageTitle: "Country", column: "country", chartType: .pie, frequency: .M1)
+        .init(pageTitle: "Views by country", column: "country", chartType: .pie, frequency: .M1)
     ]
     
     var bag: Set<AnyCancellable> = .init()

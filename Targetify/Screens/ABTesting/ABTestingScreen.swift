@@ -48,7 +48,7 @@ struct ABTestingScreen: View {
         }
         .navigationTitle("A/B Testing")
         .onAppear {
-//            viewModel.fetchActiveTestings()
+            viewModel.fetchActiveTestings1()
         }
         .sheet(isPresented: $rootViewModel.showsAddNewTestingModal, content: {
             AddNewTestingModal(screenViewModel: viewModel)

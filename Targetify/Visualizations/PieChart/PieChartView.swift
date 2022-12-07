@@ -21,13 +21,13 @@ struct PieChartView: View {
             data: data,
             separatorColor: separatorColor,
             accentColors: accentColors)
-        .padding(15)
+//        .padding(15)
         .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(TargetifyColors.chartBackground)
-        )
-        .aspectRatio(332/174, contentMode: .fit)
+//        .background(
+//            RoundedRectangle(cornerRadius: 20)
+//                .fill(TargetifyColors.chartBackground)
+//        )
+        .frame(height: chartHeight)
         
     }
 }

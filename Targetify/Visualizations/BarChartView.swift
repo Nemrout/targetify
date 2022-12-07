@@ -29,9 +29,9 @@ struct BarChartView: View {
 //                    .foregroundStyle(by: .value("Group", $0.group ?? ""))
                 .foregroundStyle(TargetifyColors.primary)
         }
-        .padding()
+//        .padding()
 //        .background(TargetifyColors.chartBackground)
-        .cornerRadius(20)
+//        .cornerRadius(20)
     }
 }
 

@@ -33,7 +33,6 @@ struct DataPoint: Decodable, Identifiable {
         
         guard let seconds = x else { return nil }
         let date = Date(timeIntervalSince1970: seconds)
-        print(date, seconds)
         return date
     }
     

@@ -37,30 +37,15 @@ struct ABTestingCardView: View {
         VStack(spacing: 20) {
             GenericChart(configuration: model.configuraiton, chartData: model.data, configurable: false)
             
-            Group {
-                if !pairs.isEmpty {
-                    ABTestingCardSummary(pairs: pairs)
-                        .opacity(self.pairs.isEmpty ? 0 : 1)
-                        .animation(.easeIn, value: self.pairs.isEmpty)
-                } else {
-                    HStack {
-                        SwiftUI.ProgressView()
-                            .progressViewStyle(.circular)
-                            .padding()
-                        
-                        Text("Computing statistics...")
-                    }
-                    .opacity(self.pairs.isEmpty ? 1 : 0)
-                    .animation(.easeIn, value: self.pairs.isEmpty)
-                }
-            }
-
+            ABTestingCardSummary(pairs: pairs)
         }
         .onAppear {
 //            model.data.page
 //            model.data.dataPoints.map { $0.group }
             model.configuraiton.multipleGroups = true
-            fetchPairs(page: model.data.page, groups: model.groups)
+            if !model.groups.isEmpty {
+                fetchPairs(page: model.data.page, groups: model.groups)
+            }
         }
     }
 }

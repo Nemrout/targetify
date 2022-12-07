@@ -12,68 +12,81 @@ struct ABTestingCardSummary: View {
     let pairs: [ABTestingPair]
     
     var body: some View {
-        
-        VStack(alignment: .leading) {
-            
-            Text("Difference in average clicks")
-                .font(.title2)
-                .padding(.bottom, 10)
-            
-            VStack(spacing: 10) {
-                ForEach(pairs) { pair in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(pair.group1Description)
-                                .bold()
-                            
-                            Text("vs.")
-                            
-                            Text(pair.group2Description)
-                                .bold()
-                        }
-                        .padding(.bottom)
-                        
-                        HStack {
-                            Text("Effect size")
-                            
-                            Spacer()
-                            
-                            Text("\(pair.effectSize.format)")
-                        }
-                        
-                        HStack {
-                            Text("Power size")
-                            
-                            Spacer()
-                            
-                            Text("\(pair.powerSize.format)")
-                        }
-                        
-                        HStack {
-                            Text("Difference:")
-                            Text("\(pair.meanDifference.format)")
-                            
-                            Spacer()
-                            
-                            Group {
-                                if pair.reject {
-                                    Text(pair.meanDifference < 0 ? pair.group1Description : pair.group2Description)
-                                        .bold() +
-                                    Text(" is better")
-                                } else {
-                                    Text("No difference")
+        Group {
+            if pairs.isEmpty {
+                HStack {
+                    SwiftUI.ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding()
+                    
+                    Text("Computing statistics...")
+                }
+                .opacity(self.pairs.isEmpty ? 1 : 0)
+                .animation(.easeIn, value: self.pairs.isEmpty)
+            } else {
+                VStack(alignment: .leading) {
+                    
+                    Text("Difference in average clicks")
+                        .font(.title2)
+                        .padding(.bottom, 10)
+                    
+                    VStack(spacing: 10) {
+                        ForEach(pairs) { pair in
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(pair.group1Description)
+                                        .bold()
+                                    
+                                    Text("vs.")
+                                    
+                                    Text(pair.group2Description)
                                         .bold()
                                 }
+                                .padding(.bottom)
                                 
+                                HStack {
+                                    Text("Effect size")
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(pair.effectSize.format)")
+                                }
+                                
+                                HStack {
+                                    Text("Power size")
+                                    
+                                    Spacer()
+                                    
+                                    Text("\(pair.powerSize.format)")
+                                }
+                                
+                                HStack {
+                                    Text("Difference:")
+                                    Text("\(pair.meanDifference.format)")
+                                    
+                                    Spacer()
+                                    
+                                    Group {
+                                        if pair.reject {
+                                            Text(pair.meanDifference < 0 ? pair.group1Description : pair.group2Description)
+                                                .bold() +
+                                            Text(" is better")
+                                        } else {
+                                            Text("No difference")
+                                                .bold()
+                                        }
+                                        
+                                    }
+                                    .padding(.horizontal, 5)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .fill(pair.pValue < 0.05 ? Color.green : Color.red)
+                                    )
+                                }
+                                
+                                Divider()
                             }
-                            .padding(.horizontal, 5)
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .fill(pair.pValue < 0.05 ? Color.green : Color.red)
-                            )
                         }
-                        
-                        Divider()
                     }
                 }
             }
