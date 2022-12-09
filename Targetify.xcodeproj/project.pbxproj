@@ -30,8 +30,6 @@
 		159C549D293153DC000F971E /* ABTestingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C549C293153DC000F971E /* ABTestingCardView.swift */; };
 		159C549F29315A3A000F971E /* AddNewTestingModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C549E29315A3A000F971E /* AddNewTestingModalViewModel.swift */; };
 		159C54A129315B2A000F971E /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C54A029315B2A000F971E /* RootViewModel.swift */; };
-		15A79B8D291ED83D00F0F08A /* CSVDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B8C291ED83D00F0F08A /* CSVDecoder.swift */; };
-		15A79B92291EE0B200F0F08A /* ChartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B91291EE0B200F0F08A /* ChartDataManager.swift */; };
 		15A79B97291EEF8100F0F08A /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B96291EEF8100F0F08A /* MainScreenViewModel.swift */; };
 		15A79B99291EF6CF00F0F08A /* ChartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B98291EF6CF00F0F08A /* ChartType.swift */; };
 		15A79B9D291EF8EF00F0F08A /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A79B9C291EF8EF00F0F08A /* LineChartView.swift */; };
@@ -85,8 +83,6 @@
 		159C549C293153DC000F971E /* ABTestingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestingCardView.swift; sourceTree = "<group>"; };
 		159C549E29315A3A000F971E /* AddNewTestingModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTestingModalViewModel.swift; sourceTree = "<group>"; };
 		159C54A029315B2A000F971E /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
-		15A79B8C291ED83D00F0F08A /* CSVDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVDecoder.swift; sourceTree = "<group>"; };
-		15A79B91291EE0B200F0F08A /* ChartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataManager.swift; sourceTree = "<group>"; };
 		15A79B96291EEF8100F0F08A /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		15A79B98291EF6CF00F0F08A /* ChartType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartType.swift; sourceTree = "<group>"; };
 		15A79B9C291EF8EF00F0F08A /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
@@ -197,6 +193,7 @@
 		15A79BAC291FC90D00F0F08A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				153D72B4293742880051E320 /* Frequency.swift */,
 				150C4E80291EB51100A797AE /* InfoPlistWrapper.swift */,
 				15A79BA7291FC29800F0F08A /* TargetifyColors.swift */,
 				156641582921030100089B1C /* TargetifyError.swift */,
@@ -207,6 +204,7 @@
 		15A79BAD291FC91A00F0F08A /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				15584315293AAEAB00862B73 /* FrequencyPicker.swift */,
 				15A79BA9291FC8EB00F0F08A /* ButtonRounded.swift */,
 				15A79B9E291EFBE700F0F08A /* ProgressView.swift */,
 			);
@@ -216,6 +214,7 @@
 		15A79BAE291FC9C000F0F08A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				15A79B98291EF6CF00F0F08A /* ChartType.swift */,
 				15BB98802937AECF0088FA38 /* PageVersion.swift */,
 				159C54972931528A000F971E /* ABTestingModel.swift */,
 				153D72AE293687450051E320 /* DataPoint.swift */,
@@ -269,13 +268,8 @@
 				15A79BAF291FC9D000F0F08A /* Screens */,
 				15A79BAE291FC9C000F0F08A /* Models */,
 				15A79BAD291FC91A00F0F08A /* CommonViews */,
-				15A79BAC291FC90D00F0F08A /* Utils */,
-				15A79B98291EF6CF00F0F08A /* ChartType.swift */,
-				153D72B4293742880051E320 /* Frequency.swift */,
-				15584315293AAEAB00862B73 /* FrequencyPicker.swift */,
-				15A79B8C291ED83D00F0F08A /* CSVDecoder.swift */,
 				15A79BAB291FC8F800F0F08A /* Services */,
-				15A79B91291EE0B200F0F08A /* ChartDataManager.swift */,
+				15A79BAC291FC90D00F0F08A /* Utils */,
 				15E269FB28EA2FCF007A0172 /* Visualizations */,
 				15E269E728EA2E52007A0172 /* Assets.xcassets */,
 				15E269E928EA2E52007A0172 /* Targetify.entitlements */,
@@ -417,7 +411,6 @@
 				156641592921030100089B1C /* TargetifyError.swift in Sources */,
 				15A79B97291EEF8100F0F08A /* MainScreenViewModel.swift in Sources */,
 				15E26A0028EA300B007A0172 /* PieChartView.swift in Sources */,
-				15A79B8D291ED83D00F0F08A /* CSVDecoder.swift in Sources */,
 				150C4E87291EBCAE00A797AE /* NetworkService.swift in Sources */,
 				153D72B5293742880051E320 /* Frequency.swift in Sources */,
 				15E269FA28EA2F27007A0172 /* AuthModel.swift in Sources */,
@@ -443,7 +436,6 @@
 				15A79BA4291F03C600F0F08A /* NewsScreenViewModel.swift in Sources */,
 				15F2161729328BEE0092EA79 /* Colors+Extensions.swift in Sources */,
 				15584316293AAEAB00862B73 /* FrequencyPicker.swift in Sources */,
-				15A79B92291EE0B200F0F08A /* ChartDataManager.swift in Sources */,
 				15E269F828EA2F21007A0172 /* AuthViewModel.swift in Sources */,
 				153B366A293F890C006867D4 /* ABTestingCardSummary.swift in Sources */,
 				153D72B329373F3F0051E320 /* GenericChart.swift in Sources */,

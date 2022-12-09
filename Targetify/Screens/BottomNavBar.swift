@@ -48,7 +48,6 @@ struct BottomNavBar_Previews: PreviewProvider {
         BottomNavBar(page: .constant(.dashboard))
             .previewLayout(.sizeThatFits)
             .previewDevice(nil)
-//            .previewLayout(.device)
     }
 }
 

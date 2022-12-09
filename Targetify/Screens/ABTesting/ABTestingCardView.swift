@@ -18,9 +18,7 @@ struct ABTestingCardView: View {
             do {
                 let pairs = try await flaskService.fetchPairs(page: page, groups: groups)
                 DispatchQueue.main.async {
-//                    withAnimation(.easeIn) {
-                        self.pairs = pairs
-//                    }
+                    self.pairs = pairs
                 }
             } catch {
                 print(error)
@@ -40,8 +38,6 @@ struct ABTestingCardView: View {
             ABTestingCardSummary(pairs: pairs)
         }
         .onAppear {
-//            model.data.page
-//            model.data.dataPoints.map { $0.group }
             model.configuraiton.multipleGroups = true
             if !model.groups.isEmpty {
                 fetchPairs(page: model.data.page, groups: model.groups)
@@ -49,9 +45,3 @@ struct ABTestingCardView: View {
         }
     }
 }
-
-//struct ABTestingCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ABTestingCardView()
-//    }
-//}

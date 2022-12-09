@@ -18,18 +18,6 @@ struct PieChart: View {
     @State private var currentLabel = ""
     @State private var touchLocation: CGPoint = .init(x: -1, y: -1)
 
-    //Uncomment the following initializer to use fully generate random colors instead of using a custom color set
-//    init(title: String, data: [ChartData], separatorColor: Color) {
-//        self.title = title
-//        self.data = data
-//        self.separatorColor = separatorColor
-//
-//        accentColors    =   [Color]()
-//        for _  in 0..<data.count  {
-//           accentColors.append(Color.init(red: Double.random(in: 0.2...0.9), green: Double.random(in: 0.2...0.9), blue: Double.random(in: 0.2...0.9)))
-//        }
-//      }
-
     var pieSlices: [PieSlice] {
         var slices = [PieSlice]()
         data.dataPoints.enumerated().forEach {(index, _) in
@@ -108,12 +96,12 @@ struct PieChart: View {
     func updateCurrentValue(inPie   pieSize:    CGRect)  {
         guard let angle = angleAtTouchLocation(inPie: pieSize, touchLocation: touchLocation)    else    {return}
         let currentIndex = pieSlices.firstIndex(where: { $0.startDegree < angle && $0.endDegree > angle }) ?? -1
-
-        if let label = data.dataPoints[currentIndex].label {
+        
+        if data.dataPoints.indices.contains(currentIndex), let label = data.dataPoints[currentIndex].label {
             currentLabel = label
         }
         
-        currentValue = "\(data.dataPoints[currentIndex].y)"
+        currentValue = "\(data.dataPoints[currentIndex].y ?? 100)"
     }
 
     func resetValues() {
@@ -133,9 +121,3 @@ struct PieChart: View {
     }
 
 }
-
-//struct PieChart_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PieChart(title: "MyPieChart", data: chartDataSet, accentColors: )
-//    }
-//}

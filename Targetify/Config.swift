@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 struct Config {
-    static let isDebug: Bool = true //UIDevice.current.isSimulator
+    static let isDebug: Bool = false //UIDevice.current.isSimulator
 }
 
 extension UIDevice {

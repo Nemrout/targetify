@@ -11,9 +11,6 @@ import Foundation
 final class RootViewModel: ObservableObject {
     @Published var showsAddNewTestingModal: Bool = false
     
-    /// Group : Description
-//    @Published var pages: [String : String] = []
-    
     static var subject = PassthroughSubject<[String : String], Never>()
 }
 

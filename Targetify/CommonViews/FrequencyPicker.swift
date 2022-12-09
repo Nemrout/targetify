@@ -32,19 +32,7 @@ struct FrequencyPicker: View {
                     .pickerStyle(.segmented)
                 }
             }
-            
-            
-//            Image(systemName: "gear.circle.fill")
-//                .resizable()
-//                .frame(width: 24, height: 24, alignment: .center)
-//                .onTapGesture {
-//                    withAnimation(.spring()) {
-//                        expanded.toggle()
-//                    }
-//                }
-            
         }
-        
     }
 }
 

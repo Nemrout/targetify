@@ -85,14 +85,10 @@ final class MainScreenViewModel: ObservableObject, FrequencyChangedProtocol {
                     group: nil
                 )
                 
-                
-//                sleep(1)
                 DispatchQueue.main.async {
                     withAnimation(.spring()) {
                         configuration.id = UUID()
                         self.charts.updateValue(chartData, forKey: configuration)
-                        print(chartData)
-                        
                     }
                 }
                 

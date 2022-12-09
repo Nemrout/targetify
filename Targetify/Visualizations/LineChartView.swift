@@ -81,25 +81,9 @@ struct LineChartView: View {
                 .foregroundStyle(curGradient)
             }
         }
-//        .padding()
-//        .background(TargetifyColors.chartBackground)
         .chartYScale(domain: chartData.dataRange)
         .chartXAxis {
             AxisMarks(values: xValues)
         }
-        
-//        .padding()
-//        .background(TargetifyColors.chartBackground)
-//        .cornerRadius(20)
-        
     }
 }
-
-//struct LineChartView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LineChartView(data: dataPoints, title: "Page views")
-//            .frame(width: 300, height: 230, alignment: .center)
-////            .previewDevice(nil)
-////            .previewLayout(.fixed(width: 300, height: 300))
-//    }
-//}

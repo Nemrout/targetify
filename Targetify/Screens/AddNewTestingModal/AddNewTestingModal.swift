@@ -74,8 +74,6 @@ struct AddNewTestingModal: View {
                             Text("This is a long text")
                             
                             Spacer()
-                            
-//                            Checkbox(isEnabled: true, onTap: {})
                         }
                         .padding(.horizontal)
                         .redacted(reason: .placeholder)

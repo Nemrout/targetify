@@ -25,12 +25,6 @@ struct DataPoint: Decodable, Identifiable {
     
     var date: Date? {
         
-//        guard let label = label else { return nil }
-//
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//        return formatter.date(from: label)
-        
         guard let seconds = x else { return nil }
         let date = Date(timeIntervalSince1970: seconds)
         return date
